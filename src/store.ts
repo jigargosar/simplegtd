@@ -89,6 +89,14 @@ export function renameTask(id: string, title: string) {
     set({ ...state, tasks: state.tasks.map((t) => (t.id === id ? { ...t, title: trimmed } : t)) })
 }
 
+export function moveTask(id: string, sectionId: SectionId) {
+    const task = state.tasks.find((t) => t.id === id)
+    if (task === undefined || task.sectionId === sectionId) return
+    const last = state.tasks.filter((t) => t.sectionId === sectionId).sort(byOrder).at(-1)
+    const moved = { ...task, sectionId, order: generateKeyBetween(last?.order ?? null, null) }
+    set({ ...state, tasks: state.tasks.map((t) => (t.id === id ? moved : t)) })
+}
+
 export function deleteTask(id: string) {
     const task = state.tasks.find((t) => t.id === id)
     if (task === undefined) return

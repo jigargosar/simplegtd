@@ -4,6 +4,7 @@ import type { Task } from './types'
 import { toggleTask, deleteTask } from './store'
 import { TaskTitleInput, TaskTitleText } from './TaskTitle'
 import { offerUndo } from './Undo'
+import { MoveTask } from './MoveTask'
 
 export function TaskRow({ task }: { task: Task }) {
     const [editing, setEditing] = useState(false)
@@ -44,6 +45,8 @@ export function TaskRow({ task }: { task: Task }) {
                     <TaskTitleText title={task.title} done={task.done} />
                 )}
             </div>
+
+            <MoveTask taskId={task.id} sectionId={task.sectionId} />
 
             <button
                 onClick={() => {
