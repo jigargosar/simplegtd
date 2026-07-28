@@ -83,6 +83,19 @@ export function toggleTask(id: string) {
     set({ ...state, tasks: state.tasks.map((t) => (t.id === id ? { ...t, done: !t.done } : t)) })
 }
 
+export function renameTask(id: string, title: string) {
+    const trimmed = title.trim()
+    if (trimmed === '') return
+    set({ ...state, tasks: state.tasks.map((t) => (t.id === id ? { ...t, title: trimmed } : t)) })
+}
+
+export function deleteTask(id: string) {
+    const task = state.tasks.find((t) => t.id === id)
+    if (task === undefined) return
+    set({ ...state, tasks: state.tasks.filter((t) => t.id !== id) })
+    return () => set({ ...state, tasks: [...state.tasks, task] })
+}
+
 export function toggleSectionCollapsed(id: SectionId) {
     set({
         ...state,
