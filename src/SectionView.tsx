@@ -1,5 +1,6 @@
 import type { Section } from './types'
-import { useSectionTasks, useSectionIsEmpty, useQuery, useFilter } from './store'
+import { useSectionTasks, useSectionIsEmpty } from './tasks'
+import { useQuery, useFilter } from './store'
 import { SectionHeader } from './SectionHeader'
 import { TaskRow } from './TaskRow'
 

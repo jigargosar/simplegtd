@@ -1,4 +1,4 @@
-import { useSections } from './store'
+import { useSections } from './sections'
 import { SectionView } from './SectionView'
 import { Capture } from './Capture'
 import { UndoBar } from './Undo'

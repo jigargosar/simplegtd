@@ -1,5 +1,5 @@
 import { ChevronUp, ChevronDown } from 'lucide-react'
-import { reorderTask } from './store'
+import { reorderTask } from './tasks'
 
 const button =
     'grid place-items-center rounded-md p-2 text-muted transition-colors hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none'

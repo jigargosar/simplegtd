@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ChevronRight, ChevronUp, ChevronDown, Trash2 } from 'lucide-react'
 import type { Section } from './types'
-import { toggleSectionCollapsed, renameSection, deleteSection, reorderSection } from './store'
+import { toggleSectionCollapsed, renameSection, deleteSection, reorderSection } from './sections'
 import { offerUndo } from './Undo'
 
 const labelClass = 'font-mono text-[1.25rem] leading-7 font-semibold tracking-[0.02em] uppercase'

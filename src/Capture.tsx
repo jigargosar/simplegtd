@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CornerDownLeft } from 'lucide-react'
-import { addTask, firstSectionId } from './store'
+import { addTask } from './tasks'
+import { firstSectionId } from './sections'
 
 export function Capture() {
     const [value, setValue] = useState('')

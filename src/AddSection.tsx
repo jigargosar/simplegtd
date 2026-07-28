@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Plus } from 'lucide-react'
-import { addSection } from './store'
+import { addSection } from './sections'
 
 export function AddSection() {
     const [value, setValue] = useState<string | undefined>(undefined)

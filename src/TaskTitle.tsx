@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { renameTask } from './store'
+import { renameTask } from './tasks'
 
 const textClass = 'wrap-anywhere text-base leading-7 transition-colors'
 

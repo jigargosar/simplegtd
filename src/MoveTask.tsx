@@ -1,6 +1,7 @@
 import { FolderInput } from 'lucide-react'
 import type { SectionId } from './types'
-import { useSections, moveTask } from './store'
+import { useSections } from './sections'
+import { moveTask } from './tasks'
 
 // The native select is stretched invisibly over the icon: full keyboard and
 // menu behaviour for free, at icon width instead of the widest list name.

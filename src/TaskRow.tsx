@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Check, Trash2 } from 'lucide-react'
 import type { Task } from './types'
-import { toggleTask, deleteTask } from './store'
+import { toggleTask, deleteTask } from './tasks'
 import { TaskTitleInput, TaskTitleText } from './TaskTitle'
 import { offerUndo } from './Undo'
 import { MoveTask } from './MoveTask'
