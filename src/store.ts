@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react'
 import { generateKeyBetween } from 'fractional-indexing'
-import type { SectionId, State, Task } from './types'
+import type { Filter, SectionId, State, Task } from './types'
 import { makeSeedState } from './seed'
 
 const KEY = 'simplegtd/v1'
@@ -55,7 +55,21 @@ export function useSections() {
 }
 
 export function useSectionTasks(sectionId: SectionId) {
-    return useStore((s) => s.tasks.filter((t) => t.sectionId === sectionId).sort(byOrder), sameItems)
+    return useStore((s) => {
+        const f = s.filter ?? 'all'
+        return s.tasks
+            .filter((t) => t.sectionId === sectionId)
+            .filter((t) => (f === 'all' ? true : f === 'done' ? t.done : !t.done))
+            .sort(byOrder)
+    }, sameItems)
+}
+
+export function useFilter() {
+    return useStore((s) => s.filter ?? 'all', Object.is)
+}
+
+export function setFilter(filter: Filter) {
+    set({ ...state, filter })
 }
 
 // --- actions ---

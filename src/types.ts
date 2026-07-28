@@ -17,7 +17,10 @@ export type Task = {
     order: string
 }
 
+export type Filter = 'all' | 'active' | 'done'
+
 export type State = {
     sections: Section[]
     tasks: Task[]
+    filter?: Filter
 }

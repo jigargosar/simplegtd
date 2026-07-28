@@ -2,6 +2,7 @@ import { useSections } from './store'
 import { SectionView } from './SectionView'
 import { Capture } from './Capture'
 import { UndoBar } from './Undo'
+import { Filters } from './Filters'
 
 export function App() {
     const sections = useSections()
@@ -17,6 +18,8 @@ export function App() {
                 </header>
 
                 <Capture />
+
+                <Filters />
 
                 {sections.length === 0 ? (
                     <p className="text-base leading-7 text-muted">
