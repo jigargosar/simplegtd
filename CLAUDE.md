@@ -5,6 +5,13 @@ doesn't have to. It stays quiet and out of the way — the doing happens out in 
 world, not here. A centered, narrow column with wide gutters: a single document,
 not a multi-column board.
 
+## Spec
+
+What exists today was built from `docs/simplegtd_spec_v3_004.md`, copied here
+from `../gtd-archive/simple-gtd-3`. It is not the whole picture — three sibling
+projects in that archive hold decisions it never captured, and two of its own
+sections are still placeholders. `docs/spec.md` is where the rest gets gathered.
+
 ## Commands
 
 ```sh
