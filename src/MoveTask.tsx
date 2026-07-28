@@ -1,23 +1,29 @@
+import { FolderInput } from 'lucide-react'
 import type { SectionId } from './types'
 import { useSections, moveTask } from './store'
 
+// The native select is stretched invisibly over the icon: full keyboard and
+// menu behaviour for free, at icon width instead of the widest list name.
 export function MoveTask({ taskId, sectionId }: { taskId: string; sectionId: SectionId }) {
     const sections = useSections()
 
     return (
-        <label className="shrink-0 opacity-0 transition-opacity duration-300 group-hover/row:opacity-100 focus-within:opacity-100">
-            <span className="sr-only">Move to list</span>
+        <div className="relative shrink-0 opacity-0 transition-opacity duration-300 group-hover/row:opacity-100 focus-within:opacity-100">
+            <span className="grid place-items-center p-3 text-muted">
+                <FolderInput className="size-4" strokeWidth={2} />
+            </span>
             <select
                 value={sectionId}
                 onChange={(e) => moveTask(taskId, e.target.value)}
-                className="cursor-pointer rounded-md border-2 border-transparent bg-transparent px-2 py-2 font-mono text-sm tracking-[0.04em] text-muted uppercase transition-colors hover:border-rule hover:text-ink focus-visible:border-rule focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                aria-label="Move to list"
+                className="absolute inset-0 cursor-pointer rounded-md opacity-0 focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
             >
                 {sections.map((s) => (
-                    <option key={s.id} value={s.id} className="bg-paper text-ink normal-case">
+                    <option key={s.id} value={s.id}>
                         {s.title}
                     </option>
                 ))}
             </select>
-        </label>
+        </div>
     )
 }

@@ -57,11 +57,22 @@ export function useSections() {
 export function useSectionTasks(sectionId: SectionId) {
     return useStore((s) => {
         const f = s.filter ?? 'all'
+        const q = query.trim().toLowerCase()
         return s.tasks
             .filter((t) => t.sectionId === sectionId)
             .filter((t) => (f === 'all' ? true : f === 'done' ? t.done : !t.done))
+            .filter((t) => q === '' || t.title.toLowerCase().includes(q))
             .sort(byOrder)
     }, sameItems)
+}
+
+let query = ''
+export function useQuery() {
+    return useSyncExternalStore(subscribe, () => query)
+}
+export function setQuery(next: string) {
+    query = next
+    listeners.forEach((l) => l())
 }
 
 export function useFilter() {
