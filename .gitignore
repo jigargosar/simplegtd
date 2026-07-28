@@ -19,3 +19,6 @@ node_modules
 dist
 .parcel-cache
 *.tsbuildinfo
+
+# Local vector store
+lancedb
