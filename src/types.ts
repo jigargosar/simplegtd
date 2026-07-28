@@ -23,4 +23,5 @@ export type State = {
     sections: Section[]
     tasks: Task[]
     filter?: Filter
+    query?: string
 }

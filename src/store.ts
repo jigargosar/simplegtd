@@ -57,7 +57,7 @@ export function useSections() {
 export function useSectionTasks(sectionId: SectionId) {
     return useStore((s) => {
         const f = s.filter ?? 'all'
-        const q = query.trim().toLowerCase()
+        const q = (s.query ?? '').trim().toLowerCase()
         return s.tasks
             .filter((t) => t.sectionId === sectionId)
             .filter((t) => (f === 'all' ? true : f === 'done' ? t.done : !t.done))
@@ -66,13 +66,12 @@ export function useSectionTasks(sectionId: SectionId) {
     }, sameItems)
 }
 
-let query = ''
 export function useQuery() {
-    return useSyncExternalStore(subscribe, () => query)
+    return useStore((s) => s.query ?? '', Object.is)
 }
-export function setQuery(next: string) {
-    query = next
-    listeners.forEach((l) => l())
+
+export function setQuery(query: string) {
+    set({ ...state, query })
 }
 
 export function useFilter() {
@@ -180,6 +179,24 @@ export function deleteSection(id: SectionId) {
             sections: [...state.sections, section],
             tasks: [...state.tasks, ...tasks],
         })
+}
+
+export function reorderSection(id: SectionId, direction: -1 | 1) {
+    const sorted = [...state.sections].sort(byOrder)
+    const i = sorted.findIndex((s) => s.id === id)
+    const target = i + direction
+    if (i === -1 || target < 0 || target >= sorted.length) return
+    const [a, b] =
+        direction === -1
+            ? [sorted[target - 1]?.order ?? null, sorted[target].order]
+            : [sorted[target].order, sorted[target + 1]?.order ?? null]
+    const order = generateKeyBetween(a, b)
+    set({ ...state, sections: state.sections.map((s) => (s.id === id ? { ...s, order } : s)) })
+}
+
+// Is anything in this section at all, ignoring the filter and search box?
+export function useSectionIsEmpty(sectionId: SectionId) {
+    return useStore((s) => !s.tasks.some((t) => t.sectionId === sectionId), Object.is)
 }
 
 export function toggleSectionCollapsed(id: SectionId) {

@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { ChevronRight, Trash2 } from 'lucide-react'
+import { ChevronRight, ChevronUp, ChevronDown, Trash2 } from 'lucide-react'
 import type { Section } from './types'
-import { toggleSectionCollapsed, renameSection, deleteSection } from './store'
+import { toggleSectionCollapsed, renameSection, deleteSection, reorderSection } from './store'
 import { offerUndo } from './Undo'
 
 const labelClass = 'font-mono text-[1.25rem] leading-7 font-semibold tracking-[0.02em] uppercase'
@@ -41,6 +41,22 @@ export function SectionHeader({ section }: { section: Section }) {
                 />
                 <h2 className={`${labelClass} text-ink`}>{section.title}</h2>
             </button>
+            <div className="order-first flex shrink-0 flex-col opacity-0 transition-opacity duration-300 group-hover/head:opacity-100 focus-within:opacity-100">
+                <button
+                    onClick={() => reorderSection(section.id, -1)}
+                    aria-label={`Move list "${section.title}" up`}
+                    className="grid place-items-center rounded-md p-1.5 text-muted transition-colors hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                >
+                    <ChevronUp className="size-4" strokeWidth={2.5} />
+                </button>
+                <button
+                    onClick={() => reorderSection(section.id, 1)}
+                    aria-label={`Move list "${section.title}" down`}
+                    className="grid place-items-center rounded-md p-1.5 text-muted transition-colors hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                >
+                    <ChevronDown className="size-4" strokeWidth={2.5} />
+                </button>
+            </div>
             <button
                 onClick={() => {
                     const undo = deleteSection(section.id)

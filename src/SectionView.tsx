@@ -1,12 +1,28 @@
-
 import type { Section } from './types'
-import { useSectionTasks } from './store'
+import { useSectionTasks, useSectionIsEmpty, useQuery, useFilter } from './store'
 import { SectionHeader } from './SectionHeader'
 import { TaskRow } from './TaskRow'
 
+// Four distinct empty states: nothing here yet, nothing matches the search,
+// nothing matches the filter, and the list is simply collapsed.
+function EmptyState({ sectionId }: { sectionId: string }) {
+    const isEmpty = useSectionIsEmpty(sectionId)
+    const query = useQuery().trim()
+    const filter = useFilter()
+
+    const message = isEmpty
+        ? 'Nothing filed here. Capture above, then move it down.'
+        : query !== ''
+          ? `Nothing in this list matches "${query}".`
+          : filter === 'done'
+            ? 'Nothing here is done yet.'
+            : 'Everything in this list is done.'
+
+    return <p className="px-3 py-2.5 text-base leading-7 text-muted">{message}</p>
+}
+
 export function SectionView({ section }: { section: Section }) {
     const tasks = useSectionTasks(section.id)
-    const remaining = tasks.filter((t) => !t.done).length
 
     return (
         <section className="grid grid-cols-1 sm:grid-cols-[10rem_1fr]">
@@ -15,14 +31,8 @@ export function SectionView({ section }: { section: Section }) {
             </div>
 
             <div className="border-l-2 border-rule pb-12 pl-4">
-                {section.collapsed ? (
-                    <p className="px-3 py-2.5 font-mono text-[0.875rem] tracking-[0.04em] text-muted uppercase">
-                        {remaining} open
-                    </p>
-                ) : tasks.length === 0 ? (
-                    <p className="px-3 py-2.5 text-base leading-7 text-muted">
-                        Nothing filed here. Capture above, then move it down.
-                    </p>
+                {section.collapsed ? null : tasks.length === 0 ? (
+                    <EmptyState sectionId={section.id} />
                 ) : (
                     <ul className="flex flex-col gap-1">
                         {tasks.map((task) => (
