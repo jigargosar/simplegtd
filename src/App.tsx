@@ -3,6 +3,7 @@ import { SectionView } from './SectionView'
 import { Capture } from './Capture'
 import { UndoBar } from './Undo'
 import { Filters } from './Filters'
+import { AddSection } from './AddSection'
 
 export function App() {
     const sections = useSections()
@@ -28,6 +29,10 @@ export function App() {
                 ) : (
                     sections.map((section) => <SectionView key={section.id} section={section} />)
                 )}
+
+                <div className="sm:pl-[10rem]">
+                    <AddSection />
+                </div>
             </main>
             <UndoBar />
         </div>

@@ -114,6 +114,22 @@ export function renameTask(id: string, title: string) {
     set({ ...state, tasks: state.tasks.map((t) => (t.id === id ? { ...t, title: trimmed } : t)) })
 }
 
+export function reorderTask(id: string, direction: -1 | 1) {
+    const task = state.tasks.find((t) => t.id === id)
+    if (task === undefined) return
+    const siblings = state.tasks.filter((t) => t.sectionId === task.sectionId).sort(byOrder)
+    const i = siblings.findIndex((t) => t.id === id)
+    const target = i + direction
+    if (target < 0 || target >= siblings.length) return
+    // Land between the neighbour we're passing and whatever is beyond it.
+    const [a, b] =
+        direction === -1
+            ? [siblings[target - 1]?.order ?? null, siblings[target].order]
+            : [siblings[target].order, siblings[target + 1]?.order ?? null]
+    const order = generateKeyBetween(a, b)
+    set({ ...state, tasks: state.tasks.map((t) => (t.id === id ? { ...t, order } : t)) })
+}
+
 export function moveTask(id: string, sectionId: SectionId) {
     const task = state.tasks.find((t) => t.id === id)
     if (task === undefined || task.sectionId === sectionId) return
@@ -127,6 +143,43 @@ export function deleteTask(id: string) {
     if (task === undefined) return
     set({ ...state, tasks: state.tasks.filter((t) => t.id !== id) })
     return () => set({ ...state, tasks: [...state.tasks, task] })
+}
+
+export function addSection(title: string) {
+    const trimmed = title.trim()
+    if (trimmed === '') return
+    const last = [...state.sections].sort(byOrder).at(-1)
+    const section = {
+        id: crypto.randomUUID(),
+        title: trimmed,
+        order: generateKeyBetween(last?.order ?? null, null),
+        collapsed: false,
+    }
+    set({ ...state, sections: [...state.sections, section] })
+}
+
+export function renameSection(id: SectionId, title: string) {
+    const trimmed = title.trim()
+    if (trimmed === '') return
+    set({ ...state, sections: state.sections.map((s) => (s.id === id ? { ...s, title: trimmed } : s)) })
+}
+
+// Deleting a list takes its tasks with it, so undo has to restore both.
+export function deleteSection(id: SectionId) {
+    const section = state.sections.find((s) => s.id === id)
+    if (section === undefined) return
+    const tasks = state.tasks.filter((t) => t.sectionId === id)
+    set({
+        ...state,
+        sections: state.sections.filter((s) => s.id !== id),
+        tasks: state.tasks.filter((t) => t.sectionId !== id),
+    })
+    return () =>
+        set({
+            ...state,
+            sections: [...state.sections, section],
+            tasks: [...state.tasks, ...tasks],
+        })
 }
 
 export function toggleSectionCollapsed(id: SectionId) {

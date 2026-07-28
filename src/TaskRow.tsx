@@ -5,6 +5,7 @@ import { toggleTask, deleteTask } from './store'
 import { TaskTitleInput, TaskTitleText } from './TaskTitle'
 import { offerUndo } from './Undo'
 import { MoveTask } from './MoveTask'
+import { Reorder } from './Reorder'
 
 export function TaskRow({ task }: { task: Task }) {
     const [editing, setEditing] = useState(false)
@@ -46,6 +47,7 @@ export function TaskRow({ task }: { task: Task }) {
                 )}
             </div>
 
+            <Reorder taskId={task.id} />
             <MoveTask taskId={task.id} sectionId={task.sectionId} />
 
             <button
