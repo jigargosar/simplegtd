@@ -24,6 +24,28 @@ This file is the only prose in the repo, and it is for you, not him.
 3. **Keyboard shortcuts stay out of the way.** Another prototype was blanketed in
    them. Casual use must be clean; power users get them without being shown them.
 
+## Before saying "done"
+
+Jigar reviews screenshots, not code or specs. So a wrong colour he catches
+instantly and "I checked the spec" he cannot catch at all. Self-reports are the
+only instrument he kept.
+
+Never claim scope is covered, a spec is met, or work is complete without naming
+the files consulted and whether they were opened **this session**. If a file was
+not opened, say so in the same sentence as the claim. Never argue against
+reading source material you have not read.
+
+Weigh archived decisions by whether they were shipped and lived with, not by
+recency. `../gtd-archive/simple-gtd-2` ran 76 days and 1,533 lines — its
+`docs/adr.md` carries the most weight. `../gtd-archive/simple-gtd-3` wrote zero
+lines of code in two days, so its `docs/simplegtd_spec_v3_004.md` is the least
+battle-tested despite being the newest and the most confidently written.
+
+The archives contradict each other — `simply-gtd/docs/interaction.md` wants
+top-insertion, popover editing with OK/Cancel, and per-section counts, all of
+which `spec_v3_004.md` forbids or omits. There is no reconciled spec. Say which
+source a decision came from.
+
 ## Commands
 
 ```sh
