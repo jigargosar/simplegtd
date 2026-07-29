@@ -1,12 +1,36 @@
 import { useSections } from './sections'
+import { useMatchCount } from './tasks'
+import { useQuery, useFilter } from './store'
 import { SectionView } from './SectionView'
 import { Capture } from './Capture'
 import { UndoBar } from './Undo'
 import { Filters } from './Filters'
 import { AddSection } from './AddSection'
+import { useGlobalKeys } from './keys'
+
+const message = 'text-base leading-7 text-muted'
+
+// One message for the whole app beats the same line repeated under every list.
+function NoMatches() {
+    const query = useQuery().trim()
+    const filter = useFilter()
+    return (
+        <p className={message}>
+            {query !== ''
+                ? `Nothing matches "${query}". Try a shorter word, or clear the search.`
+                : filter === 'done'
+                  ? 'Nothing is done yet. Tick something off and it will show up here.'
+                  : 'Everything is done. Capture something new above.'}
+        </p>
+    )
+}
 
 export function App() {
     const sections = useSections()
+    const matches = useMatchCount()
+    useGlobalKeys()
+
+    const narrowed = useQuery().trim() !== '' || useFilter() !== 'all'
 
     return (
         <div className="min-h-screen bg-paper font-sans">
@@ -23,9 +47,9 @@ export function App() {
                 <Filters />
 
                 {sections.length === 0 ? (
-                    <p className="text-base leading-7 text-muted">
-                        No lists yet. Add one to get started.
-                    </p>
+                    <p className={message}>No lists yet. Add one to get started.</p>
+                ) : narrowed && matches === 0 ? (
+                    <NoMatches />
                 ) : (
                     sections.map((section) => <SectionView key={section.id} section={section} />)
                 )}

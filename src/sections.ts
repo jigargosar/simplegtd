@@ -22,6 +22,12 @@ export function addSection(title: string) {
         collapsed: false,
     }
     set({ ...state, sections: [...state.sections, section] })
+    return section.id
+}
+
+// Capture files here, so its label has to name whatever list actually sorts first.
+export function useFirstSection() {
+    return useStore((s) => [...s.sections].sort(byOrder)[0], Object.is)
 }
 
 export function renameSection(id: SectionId, title: string) {

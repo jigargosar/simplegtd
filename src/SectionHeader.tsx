@@ -32,6 +32,13 @@ export function SectionHeader({ section }: { section: Section }) {
             <button
                 onClick={() => toggleSectionCollapsed(section.id)}
                 onDoubleClick={() => setEditing(true)}
+                // Enter on this button collapses, so rename needs its own key.
+                onKeyDown={(e) => {
+                    if (e.key === 'F2' || (e.key === 'Enter' && e.shiftKey)) {
+                        setEditing(true)
+                        e.preventDefault()
+                    }
+                }}
                 aria-expanded={!section.collapsed}
                 className="flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-raised focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
             >

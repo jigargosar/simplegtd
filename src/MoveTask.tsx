@@ -17,6 +17,8 @@ export function MoveTask({ taskId, sectionId }: { taskId: string; sectionId: Sec
                 value={sectionId}
                 onChange={(e) => moveTask(taskId, e.target.value)}
                 aria-label="Move to list"
+                data-move
+                tabIndex={-1}
                 className="absolute inset-0 cursor-pointer rounded-md opacity-0 focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
             >
                 {sections.map((s) => (

@@ -24,4 +24,5 @@ export type State = {
     tasks: Task[]
     filter?: Filter
     query?: string
+    drafts?: Record<string, string>
 }

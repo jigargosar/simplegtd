@@ -7,10 +7,20 @@ const button =
 export function Reorder({ taskId }: { taskId: string }) {
     return (
         <div className="flex shrink-0 flex-col opacity-0 transition-opacity duration-300 group-hover/row:opacity-100 focus-within:opacity-100">
-            <button onClick={() => reorderTask(taskId, -1)} aria-label="Move up" className={button}>
+            <button
+                onClick={() => reorderTask(taskId, -1)}
+                aria-label="Move up"
+                tabIndex={-1}
+                className={button}
+            >
                 <ChevronUp className="size-4" strokeWidth={2.5} />
             </button>
-            <button onClick={() => reorderTask(taskId, 1)} aria-label="Move down" className={button}>
+            <button
+                onClick={() => reorderTask(taskId, 1)}
+                aria-label="Move down"
+                tabIndex={-1}
+                className={button}
+            >
                 <ChevronDown className="size-4" strokeWidth={2.5} />
             </button>
         </div>

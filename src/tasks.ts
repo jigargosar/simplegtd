@@ -14,6 +14,19 @@ export function useSectionTasks(sectionId: SectionId) {
     }, sameItems)
 }
 
+// How many tasks survive the filter and the search box, across every list?
+export function useMatchCount() {
+    return useStore((s) => {
+        const f = s.filter ?? 'all'
+        const q = (s.query ?? '').trim().toLowerCase()
+        return s.tasks.filter(
+            (t) =>
+                (f === 'all' ? true : f === 'done' ? t.done : !t.done) &&
+                (q === '' || t.title.toLowerCase().includes(q)),
+        ).length
+    }, Object.is)
+}
+
 // Is anything in this section at all, ignoring the filter and search box?
 export function useSectionIsEmpty(sectionId: SectionId) {
     return useStore((s) => !s.tasks.some((t) => t.sectionId === sectionId), Object.is)
