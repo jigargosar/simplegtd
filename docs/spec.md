@@ -10,9 +10,7 @@ What SimpleGTD should do. Put `[x]` on a line when it is done.
 
 ## Capture
 
-- One box takes anything, without asking which list it belongs to.
-- Captured tasks land in the first list.
-- With no lists at all, capture makes one.
+- Quick capture.
 
 ## Lists
 
@@ -43,6 +41,7 @@ What SimpleGTD should do. Put `[x]` on a line when it is done.
 
 - Everything saves itself. It is there when you come back.
 - Text you have typed is preserved across a refresh, in every field.
+  - Today only the capture box and a new list's name do this.
 - Nothing leaves the browser. No account, no sync, no sharing.
 - First run comes with example lists to show the idea.
 
