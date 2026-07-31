@@ -8,8 +8,15 @@
 
 ## Spec
 
-- `docs/spec.md` — what SimpleGTD should do. Put `[x]` on a line when it is done.
+- `docs/spec.md` — what SimpleGTD should do.
 - `docs/what-exists-2026-07-31.md` — facts read from the source on that date.
+
+Rules for `docs/spec.md`:
+
+- Two sections only: Features, and Not doing. Nice-to-have goes under Not doing.
+- One feature per line. Name the feature, not how it works.
+- `[x]` when done. Partial work stays unticked, with a nested line saying what is true today.
+- The list is frozen. Adding a line is a deliberate act.
 
 ## Commands
 
@@ -42,5 +49,7 @@ pnpm typecheck    # tsc --noEmit
 
 ## Next Steps
 
-- Check the spec against the running app.
-- Tick what is already true.
+- Compress `docs/spec.md` to feature-level lines. One feature per line, name the
+  feature not how it works.
+- Check the spec against the running app, tick what is already true.
+- Then the UI.
