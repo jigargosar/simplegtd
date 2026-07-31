@@ -14,6 +14,7 @@ Rules for `docs/spec.md`:
 
 - Things decided against go under `## Not doing`, including nice-to-haves.
 - `[x]` when done. Partial work stays unticked, with a nested line saying what is true today.
+- Done is decided by reading the code, never from memory or a report.
 - The list is frozen. Adding a line is a deliberate act.
 
 ## Commands
