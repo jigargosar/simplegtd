@@ -18,8 +18,9 @@ pnpm build        # production build
 pnpm typecheck    # tsc --noEmit
 ```
 
-## Stack
+## Current Stack
 
-React 19, TypeScript, Vite, Tailwind v4, pnpm. `fractional-indexing` for order
-keys, `lucide-react` for icons. Store is a plain module with
-`useSyncExternalStore` — no state library until one is actually needed.
+- React 19, TypeScript, Vite, Tailwind v4, pnpm.
+- `fractional-indexing` for effective ordering
+- `lucide-react` for icons.
+- Store is a plain module with `useSyncExternalStore`
