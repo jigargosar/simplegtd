@@ -48,7 +48,5 @@ pnpm typecheck    # tsc --noEmit
 
 ## Next Steps
 
-- Compress `docs/spec.md` to feature-level lines. One feature per line, name the
-  feature not how it works.
 - Check the spec against the running app, tick what is already true.
 - Then the UI.
