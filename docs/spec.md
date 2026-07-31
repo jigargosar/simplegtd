@@ -1,9 +1,6 @@
 # Spec
 
-What SimpleGTD should do. Not a record of what is built — `what-exists-2026-07-31.md`
-and `ux-2026-07-31.md` hold that.
-
-Lines marked **(not built)** are intent, not the current app.
+What SimpleGTD should do. Put `[x]` on a line when it is done.
 
 ## Shape
 
@@ -41,13 +38,11 @@ Lines marked **(not built)** are intent, not the current app.
 
 - Deleting anything can be undone.
 - Only the last delete is recoverable.
-- How the undo is offered is a UX question, not a spec one.
 
 ## Keeping your work
 
 - Everything saves itself. It is there when you come back.
 - Text you have typed is preserved across a refresh, in every field.
-  **(not built — only the capture box and a new list's name do this today)**
 - Nothing leaves the browser. No account, no sync, no sharing.
 - First run comes with example lists to show the idea.
 
@@ -55,9 +50,9 @@ Lines marked **(not built)** are intent, not the current app.
 
 - The whole app can be driven from the keyboard.
 
-## Deliberately absent
+## Not doing
 
-- No due dates, tags, notes, subtasks, projects, or archive.
-- No drag and drop.
-- No multi-select or bulk actions.
-- No export.
+- Due dates, tags, notes, subtasks, projects, archiving.
+- Drag and drop.
+- Multi-select and bulk actions.
+- Export.
