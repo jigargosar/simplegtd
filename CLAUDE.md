@@ -12,8 +12,7 @@
 
 Rules for `docs/spec.md`:
 
-- Two sections only: Features, and Not doing. Nice-to-have goes under Not doing.
-- One feature per line. Name the feature, not how it works.
+- Things decided against go under `## Not doing`, including nice-to-haves.
 - `[x]` when done. Partial work stays unticked, with a nested line saying what is true today.
 - The list is frozen. Adding a line is a deliberate act.
 
