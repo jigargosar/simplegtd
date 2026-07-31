@@ -24,3 +24,24 @@ pnpm typecheck    # tsc --noEmit
 - `fractional-indexing` for effective ordering
 - `lucide-react` for icons.
 - Store is a plain module with `useSyncExternalStore`
+
+## History
+
+- Countless hours have been spent on this project (Beyond current repo)
+
+## How to Finish this project
+
+- Finish needs to be defined
+- Features + deployment
+
+## Next Steps
+
+- create a spec section in Claude file itself.
+- Then check against current implementation.
+- Figure out the difference
+- Deploy
+- Then tweak
+
+## How to focus on finishing?
+
+- Practical Ideas?
