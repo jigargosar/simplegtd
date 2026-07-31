@@ -9,7 +9,6 @@
 ## Spec
 
 - `docs/spec.md` — what SimpleGTD should do.
-- `docs/what-exists-2026-07-31.md` — facts read from the source on that date.
 
 Rules for `docs/spec.md`:
 
