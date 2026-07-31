@@ -8,7 +8,8 @@
 
 ## Spec
 
-Maybe later or not at all
+- `docs/spec.md` — what SimpleGTD should do. Put `[x]` on a line when it is done.
+- `docs/what-exists-2026-07-31.md` — facts read from the source on that date.
 
 ## Commands
 
@@ -17,6 +18,11 @@ pnpm dev          # dev server
 pnpm build        # production build
 pnpm typecheck    # tsc --noEmit
 ```
+
+## Deployment
+
+- Live at https://jigargosar.github.io/simplegtd/
+- Every push to `main` builds and deploys through `.github/workflows/deploy.yml`.
 
 ## Current Stack
 
@@ -36,12 +42,5 @@ pnpm typecheck    # tsc --noEmit
 
 ## Next Steps
 
-- create a spec section in Claude file itself.
-- Then check against current implementation.
-- Figure out the difference
-- Deploy
-- Then tweak
-
-## How to focus on finishing?
-
-- Practical Ideas?
+- Check the spec against the running app.
+- Tick what is already true.
