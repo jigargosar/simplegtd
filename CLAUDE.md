@@ -48,6 +48,7 @@ pnpm typecheck    # tsc --noEmit
 
 ## Next Steps
 
-- Check the spec against the running app, tick what is already true.
-- Remove undo (feature + code).
-- Then the UI.
+- [x] Check the spec against the running app, tick what is already true.
+- [ ] Remove undo (feature + code).
+  - docs/spec.md already reads as if this is done (Not doing: Undo). Only the code remains.
+- [ ] Then the UI.
