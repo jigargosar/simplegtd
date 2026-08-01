@@ -32,8 +32,6 @@
 ## Keeping your work
 
 - [x] All information is preserved in browser.
-- Text you have typed is preserved across a refresh, in every field.
-  - Today only the capture box and a new list's name do this.
 - [x] First run comes with example lists to show the idea.
 
 ## Keyboard
@@ -48,3 +46,4 @@
 - Export.
 - Account, sync, sharing.
 - Undo.
+- Draft persistence.
