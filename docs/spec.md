@@ -36,7 +36,7 @@
 
 ## Keyboard
 
-- [x] The whole app can be driven from the keyboard.
+- [x] Partial kb support. Note: we are not expanding more than what we have.
 
 ## Not doing
 
@@ -47,3 +47,4 @@
 - Account, sync, sharing.
 - Undo.
 - Draft persistence.
+- Full keyboard support.
