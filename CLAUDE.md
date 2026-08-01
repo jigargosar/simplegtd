@@ -50,5 +50,4 @@ pnpm typecheck    # tsc --noEmit
 
 - Check the spec against the running app, tick what is already true.
 - Remove undo (feature + code).
-- Remove draft persistence (feature + code).
 - Then the UI.

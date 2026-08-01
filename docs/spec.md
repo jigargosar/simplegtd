@@ -32,6 +32,7 @@
 ## Keeping your work
 
 - [x] All information is preserved in browser.
+- [x] Partial draft persistence support. Note: not expanding beyond capture box and new list name.
 - [x] First run comes with example lists to show the idea.
 
 ## Keyboard
@@ -46,5 +47,5 @@
 - Export.
 - Account, sync, sharing.
 - Undo.
-- Draft persistence.
+- Full draft persistence.
 - Full keyboard support.

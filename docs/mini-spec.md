@@ -17,4 +17,5 @@
 - Simple Search
 - Persistance: Browser only
 - Seeded examples
+- Draft persistence (capture, new list)
 - Keyboard Support (note: not expanding, keeping what we have)
