@@ -8,7 +8,7 @@
 
 5. DnD needs implementing:  yes, and bad design of ^ v should be removed.
 
-6. Add task is not implemented: capture and add are different feature with different affordances.
+6. Add task is not implemented: capture and add are different feature with different affordances. Overlaps with 7 and 8: same underlying gap, no picker, no context. Not confirmed as a separate thing yet.
 
 7. Capture: should work from anywhere, with a dropdown of section. Default; last section added to via capture.
 
