@@ -6,22 +6,15 @@
     - Collasible
     - Delete Cascades tasks
 - Task CRUD
-    - Add
-        - Lands at bottom
-        - No blank name
-    - Tick done
-        - Stays put
-        - Marked
-    - Rename
+    - No blank name
     - Reorder
     - Move to list
-    - Delete
-- Finding
-    - Partial title match
-    - Show all
-    - Show active
-    - Show done
-    - Filters combine
-- Browser only
+    - done/undone
+- Static filters
+    - Active
+    - All
+    - Done
+- Simple Search
+- Persistance: Browser only
 - Seeded examples
 - Full keyboard control
