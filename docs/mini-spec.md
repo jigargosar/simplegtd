@@ -17,4 +17,4 @@
 - Simple Search
 - Persistance: Browser only
 - Seeded examples
-- Full keyboard control
+- Keyboard Support (note: not expanding, keeping what we have)
