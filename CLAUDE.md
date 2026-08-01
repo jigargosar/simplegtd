@@ -32,35 +32,6 @@ pnpm typecheck    # tsc --noEmit
 - `lucide-react` for icons.
 - Store is a plain module with `useSyncExternalStore`
 
-
----
-Following is Archived 
----
-
-## Spec workflow
-
-- `docs/spec.md` — what SimpleGTD should do.
-
-Rules for `docs/spec.md`:
-
-- Things decided against go under `## Not doing`, including nice-to-haves.
-- `[x]` when done. Partial work stays unticked, with a nested line saying what is true today.
-- Done is decided by reading the code, never from memory or a report.
-- The list is frozen. Adding a line is a deliberate act.
-
-
-## History
-
-- Countless hours have been spent on this project (Beyond current repo)
-
-## How to Finish this project
-
-- Finish needs to be defined
-- Features + deployment
-
 ## Next Steps
 
-- [x] Check the spec against the running app, tick what is already true.
-- [ ] Remove undo (feature + code).
-  - docs/spec.md already reads as if this is done (Not doing: Undo). Only the code remains.
-- [ ] Then the UI.
+- See `docs/scratch-or-not.md` for active decisions.
