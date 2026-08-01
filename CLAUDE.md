@@ -49,4 +49,6 @@ pnpm typecheck    # tsc --noEmit
 ## Next Steps
 
 - Check the spec against the running app, tick what is already true.
+- Remove undo (feature + code).
+- Save typed text across refresh, in every field.
 - Then the UI.
