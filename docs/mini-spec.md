@@ -1,0 +1,27 @@
+# Mini spec
+
+- List CRUD
+    - No blank name
+    - Reorder
+    - Collasible
+    - Delete Cascades tasks
+- Task CRUD
+    - Add
+        - Lands at bottom
+        - No blank name
+    - Tick done
+        - Stays put
+        - Marked
+    - Rename
+    - Reorder
+    - Move to list
+    - Delete
+- Finding
+    - Partial title match
+    - Show all
+    - Show active
+    - Show done
+    - Filters combine
+- Browser only
+- Seeded examples
+- Full keyboard control
