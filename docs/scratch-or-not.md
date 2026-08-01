@@ -12,8 +12,4 @@
 
 7. Capture: should work from anywhere, with a dropdown of section. Default; last section added to via capture.
 
-8. The crash (`Rendered fewer hooks than expected`): confirmed real, root cause is `App.tsx:33`, one-line fix, still sitting unapplied.
-
-9. Hook order change warning: same bug as #8, not a second cause.
-
-10. "Terrible implementation of hooks, hard to comprehend": dropped, conceded. Real but isolated to that one line; grepped, no second instance; no lint tooling in the project either way.
+8. The crash (`Rendered fewer hooks than expected`, plus the accompanying hook order change warning, same bug): confirmed real, root cause is `App.tsx:33`, one-line fix, still sitting unapplied.
