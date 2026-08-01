@@ -6,11 +6,11 @@
 
 4. "UI needs simplification" / "UI/UX": raised three separate times (3rd message, the "more items" list, and again after conceding DnD/hooks) — still zero specifics given across all three.
 
-5. DnD needs implementing: dropped, conceded. Already an explicit "Not doing" decision, not a gap.
+5. DnD needs implementing:  yes, and bad design of ^ v should be removed.
 
-6. "Add is not implemented" (the literal claim): false as stated; `addTask()` works.
+6. Add task is not implemented: capture and add are different feature with different affordances.
 
-7. Capture only ever targets the first list; anywhere else needs a separate Move step: confirmed real. Today's correction: this was never "Add" being broken — Capture and Move are two distinct features, and treating them as one completed "Add" (which is how `docs/spec.md`'s checklist reads them) is the actual error.
+7. Capture: should work from anywhere, with a dropdown of section. Default; last section added to via capture.
 
 8. Affordance: no visual signal on Capture that it's fixed to one target, no way to see or pick the destination before submitting. Its own objection, separate from #7's missing-feature framing.
 
