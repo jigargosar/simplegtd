@@ -4,7 +4,6 @@
 
 - [x] Tasks live in named lists.
 - [x] Lists are ordered. Tasks are ordered within their list.
-- [x] A list can be collapsed out of the way.
 
 ## Capture
 
@@ -30,11 +29,6 @@
 - [x] Show all, only unfinished, or only done.
 - [x] Search and filter apply together.
 
-## Undo
-
-- [x] Deleting anything can be undone.
-- [x] Only the last delete is recoverable.
-
 ## Keeping your work
 
 - [x] All information is preserved in browser.
@@ -53,3 +47,4 @@
 - Multi-select and bulk actions.
 - Export.
 - Account, sync, sharing.
+- Undo.
