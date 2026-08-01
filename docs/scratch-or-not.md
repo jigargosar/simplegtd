@@ -4,7 +4,7 @@
 
 3. Archive feature: real ask, explicitly deferred by you ("start with 2-click delete first").
 
-4. "UI needs simplification" / "UI/UX": raised three separate times (3rd message, the "more items" list, and again after conceding DnD/hooks) — still zero specifics given across all three.
+4. UX issues: under investigation.
 
 5. DnD needs implementing:  yes, and bad design of ^ v should be removed.
 
