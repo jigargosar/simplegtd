@@ -37,10 +37,9 @@
 
 ## Keeping your work
 
-- [x] Everything saves itself. It is there when you come back.
+- [x] All information is preserved in browser.
 - Text you have typed is preserved across a refresh, in every field.
   - Today only the capture box and a new list's name do this.
-- [x] Nothing leaves the browser. No account, no sync, no sharing.
 - [x] First run comes with example lists to show the idea.
 
 ## Keyboard
@@ -53,3 +52,4 @@
 - Drag and drop.
 - Multi-select and bulk actions.
 - Export.
+- Account, sync, sharing.
