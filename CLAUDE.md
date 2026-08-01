@@ -6,7 +6,7 @@
   world, not here.
 - A centered, narrow column with wide gutters: a single document, not a multi-column board.
 
-## Spec
+## Spec workflow
 
 - `docs/spec.md` — what SimpleGTD should do.
 
