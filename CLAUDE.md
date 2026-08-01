@@ -37,6 +37,11 @@ pnpm typecheck    # tsc --noEmit
 - `lucide-react` for icons.
 - Store is a plain module with `useSyncExternalStore`
 
+
+---
+Following is Archived 
+---
+
 ## History
 
 - Countless hours have been spent on this project (Beyond current repo)
