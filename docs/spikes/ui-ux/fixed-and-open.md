@@ -31,7 +31,9 @@ Walked item by item, 2 Aug 2026.
 14. **Done styling**. Dim plus strikethrough. **B**
     Note: near-universal todo convention.
 15. **Delete ×**. Removes a task. Hidden until the row is hovered. **B**
-    Hidden-until-hover means it does not exist for touch or keyboard-only use.
+    Hidden-until-hover means it does not exist for touch.
+    Deleting must carry some resistance. Not one careless click. Locked job, shape open.
+    Undo is out, so resistance is the only guard against a mistake.
 16. **Row hover**. Shows which row a click will land on. **B**
 17. **New list button**. `+ begin a new list` at the bottom. **B**
 18. **Palette**. Cream paper, brown ink, brown-gold rules, green accent. **C**
@@ -43,6 +45,7 @@ Walked item by item, 2 Aug 2026.
 ## Jobs the spike does not show
 
 22. **Add inside a list**. Adding an item straight into a list while looking at that list. Feature locked, implementation open. **B**
+23. **Drag and drop**. Moving a task within a list and between lists by dragging. Lists themselves can be dragged into a new order too. Feature locked, implementation open. **B**
 
 ## Standing rules for anyone working from this
 
