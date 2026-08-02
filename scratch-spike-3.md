@@ -22,8 +22,6 @@ Drag grip, move between lists, list reorder.
 
 ## Pending
 
-- Add-task focus ring clipped by the collapse wrapper's `overflow-hidden`.
-- No gap between last row and add form, so the ring overlaps the row above.
 - Focused input outline is louder than any real content.
 - Reorder and move between lists: undesigned.
 - Rename a task and a list: undesigned. Added to Required 2 Aug 2026.
@@ -57,6 +55,10 @@ capture with last-list memory, remove with confirm.
 
 Fixed during that review: the stroke drew on every task and ran the full row width; the Capture
 pill covered a task; `&ldquo;` printed literally in the confirm strip.
+
+Fixed after: the add-task focus ring was clipped by the collapse wrapper's `overflow-hidden`
+(`pb-1.5` on the wrapper) and overlapped the hovered row above it (`pt-1.5` on the add form).
+Measured after the fix: 6px of room below, 6px gap above.
 
 Not verified: the narrow layout.
 
