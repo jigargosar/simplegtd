@@ -15,6 +15,7 @@
 - Tasks can be viewed by state: all, active, done.
 - A task can be captured quickly from anywhere; it gets assigned to a list, and the last list used is remembered.
 - Each list has a name.
+- A task can be renamed. A list can be renamed.
 - A list can be collapsed shut.
 - A task can be marked done, and done tasks are visually distinguished from active ones.
 - A task can be removed; removal is not instant or accidental, it carries some resistance.
