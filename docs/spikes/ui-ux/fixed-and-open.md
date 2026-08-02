@@ -52,3 +52,13 @@ Walked item by item, 2 Aug 2026.
 - Do not treat the current hierarchy or theme as a constraint.
 - Purely visual elements default to **C**.
 - Nothing is marked **A**, and nothing is marked **D**. The D pass has not been done yet.
+
+## Not doing
+
+- Due dates, tags, notes, subtasks, projects, archiving.
+- Multi-select and bulk actions.
+- Export.
+- Account, sync, sharing.
+- Undo.
+- Full draft persistence.
+- Full keyboard support.
