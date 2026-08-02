@@ -1,6 +1,11 @@
 # Fixed and open
 
-What the next spike must build, and what's left for it to design.
+- What the next spike must build, and what's left for it to design.
+- Implementation and UX for everything in Required is open
+- The next spike is a static design, not a functional build.
+- Use the `frontend-design` and `frontend-baseline` skills.
+- The deliverable is single HTML file
+- Try to use libraries from cdn. Instead of hardcoded HTML, data+loops can be much cheeper.
 
 ## Required
 
@@ -26,13 +31,3 @@ What the next spike must build, and what's left for it to design.
 - Undo.
 - Full draft persistence.
 - Full keyboard support.
-
-## Open
-
-Implementation and UX for everything in Required is open: fonts, colors, icons, spacing, exact copy, and exact interaction mechanics (hover-to-reveal vs. always-visible, chevron vs. some other collapse control, checkbox shape, button styling, and so on) are not constrained by this doc.
-
-## Spike fidelity
-
-The next spike is a static design, not a functional build. Interactive states (hover, checked, dragging, and so on) can be shown as frozen snapshots. Not every state needs to be shown.
-
-Use the `frontend-design` and `frontend-baseline` skills when building it.
