@@ -5,7 +5,7 @@
 - The next spike is a static design, not a functional build.
 - Use the `frontend-design` and `frontend-baseline` skills.
 - The deliverable is single HTML file
-- Try to use libraries from cdn. Instead of hardcoded HTML, data+loops can be much cheeper. The objective being less code to review, not bundle size.
+- Try to use libraries from cdn. Instead of hardcoded HTML, data+loops can be much cheeper. The objective being less code to author and review, never bundle size.
 - `npx -y serve ...` should be used to serve single HTML file for review.
 
 ## Required
