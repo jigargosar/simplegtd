@@ -38,7 +38,24 @@ pnpm typecheck    # tsc --noEmit
 - `lucide-react` for icons.
 - Store is a plain module with `useSyncExternalStore`
 
+## Spike rules
+
+- Inside `docs/`, you may open only two files: `docs/spikes/ui-ux/fixed-and-open.md`, which is
+  the brief, and the spike file you are currently building. Anything else under `docs/` needs
+  asking first, granted per file.
+- A file being named in this file, in another doc, or in conversation is not permission to open
+  it. A mention is not access.
+- Each spike is a fresh look. Do not read earlier spikes, do not carry their decisions across.
+- Cheaper and smaller mean fewer lines to author and review. Never bundle size, never runtime.
+- Serve the spike, open it in a browser, screenshot it, and critique it yourself before showing Jigar.
+- Working notes for the spike in progress live in `scratch-spike-3.md`, at the project root.
+
 ## Next Steps
 
-- See `docs/scratch-or-not.md` for active decisions.
-- See `docs/spikes/ui-ux/fixed-and-open.md` for what the next UI spike must build and what's open.
+- Read only:
+  - `CLAUDE.md`
+  - `docs/spikes/ui-ux/fixed-and-open.md` — the brief. Start here.
+- Read and write:
+  - `docs/spikes/ui-ux/spike-3.html` — the current spike.
+  - `scratch-spike-3.md` — working notes.
+- Nothing else. No other file in this project, ever.

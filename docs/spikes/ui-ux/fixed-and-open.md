@@ -7,6 +7,8 @@
 - The deliverable is single HTML file
 - Try to use libraries from cdn. Instead of hardcoded HTML, data+loops can be much cheeper. The objective being less code to author and review, never bundle size.
 - `npx -y serve ...` should be used to serve single HTML file for review.
+- Each spike is a fresh look. Do not carry decisions across from earlier spikes.
+- Serve the spike, open it in a browser, screenshot it, and critique it yourself before showing Jigar.
 
 ## Required
 
