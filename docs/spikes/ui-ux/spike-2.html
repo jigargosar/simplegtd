@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>simplegtd — spike 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --paper: #EFEDE6;
+    --ink: #23231F;
+    --ink-soft: #4E4C43;
+    --line: #C5BEA9;
+    --accent: #35467D;
+    --accent-soft: #E7EAF3;
+  }
+  html { scrollbar-gutter: stable; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', ui-sans-serif, sans-serif;
+  }
+  .font-mono-display {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  button { cursor: pointer; }
+  *:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+  <div class="mx-auto max-w-[560px] px-6 sm:px-8 py-12 sm:py-16">
+
+    <!-- Wordmark -->
+    <div class="font-mono-display text-xl tracking-tight" style="color: var(--ink)">simplegtd</div>
+
+    <!-- Quick capture (frozen: filled, about to be added to Today) -->
+    <div class="mt-8">
+      <div class="flex items-center gap-3 rounded-md border px-4 py-3 bg-white min-w-0" style="border-color: var(--line);">
+        <span class="font-mono-display text-sm shrink-0" style="color: var(--ink-soft)">+</span>
+        <span class="text-base min-w-0 wrap-anywhere" style="color: var(--ink)">Confirm the venue deposit</span>
+      </div>
+      <div class="mt-2 pl-1 text-sm font-mono-display" style="color: var(--ink-soft)">adding to <span style="color: var(--accent)">Today</span></div>
+    </div>
+
+    <!-- Search + filters -->
+    <div class="mt-10 flex items-center justify-between gap-4">
+      <input type="text" placeholder="Search tasks" class="w-40 sm:w-48 min-w-0 rounded border px-3 py-2 text-sm bg-white" style="border-color: var(--line); color: var(--ink)" />
+      <div class="font-mono-display text-sm flex items-center gap-4">
+        <button class="font-medium py-2" style="color: var(--accent)">all</button>
+        <button class="py-2" style="color: var(--ink-soft)">active</button>
+        <button class="py-2" style="color: var(--ink-soft)">done</button>
+      </div>
+    </div>
+
+    <!-- Lists -->
+    <div class="mt-10 space-y-10">
+
+      <!-- List: Today -->
+      <div>
+        <div class="flex items-center gap-2 px-2">
+          <button aria-label="Collapse Today" class="font-mono-display text-sm inline-flex items-center justify-center w-6 h-6 shrink-0" style="color: var(--ink-soft)">▾</button>
+          <h2 class="font-mono-display text-[17px] font-medium" style="color: var(--ink)">Today</h2>
+          <span class="text-sm font-mono-display" style="color: var(--ink-soft)">3</span>
+        </div>
+        <div class="mt-3 border-t" style="border-color: var(--line)">
+
+          <!-- Task row: frozen hover state, remove visible -->
+          <div class="flex items-center gap-3 py-2.5 px-2 border-b rounded-md" style="border-color: var(--line); background: var(--accent-soft);">
+            <span class="font-mono-display text-sm shrink-0" style="color: var(--ink-soft)">⋮⋮</span>
+            <span class="font-mono-display text-sm shrink-0" style="color: var(--accent)">[&nbsp;]</span>
+            <span class="flex-1 min-w-0 wrap-anywhere text-base" style="color: var(--ink)">Reply to Meera about the lease</span>
+            <button class="text-sm font-mono-display underline py-2 px-1 shrink-0" style="color: var(--ink-soft)">remove</button>
+          </div>
+
+          <!-- Task row -->
+          <div class="flex items-center gap-3 py-2.5 px-2 border-b" style="border-color: var(--line)">
+            <span class="font-mono-display text-sm shrink-0" style="color: var(--ink-soft)">⋮⋮</span>
+            <span class="font-mono-display text-sm shrink-0" style="color: var(--accent)">[&nbsp;]</span>
+            <span class="flex-1 min-w-0 wrap-anywhere text-base" style="color: var(--ink)">Pick up the dry cleaning</span>
+          </div>
+
+          <!-- Done task -->
+          <div class="flex items-center gap-3 py-2.5 px-2 border-b" style="border-color: var(--line)">
+            <span class="font-mono-display text-sm shrink-0" style="color: var(--ink-soft)">⋮⋮</span>
+            <span class="font-mono-display text-sm shrink-0" style="color: var(--ink-soft)">[x]</span>
+            <span class="flex-1 min-w-0 wrap-anywhere text-base line-through" style="color: var(--ink-soft)">Call the dentist to reschedule</span>
+          </div>
+
+          <!-- Add inline -->
+          <button class="w-full text-left py-2.5 px-2 text-sm" style="color: var(--ink-soft)">+ add a task</button>
+        </div>
+      </div>
+
+      <!-- List: This week -->
+      <div>
+        <div class="flex items-center gap-2 px-2">
+          <button aria-label="Collapse This week" class="font-mono-display text-sm inline-flex items-center justify-center w-6 h-6 shrink-0" style="color: var(--ink-soft)">▾</button>
+          <h2 class="font-mono-display text-[17px] font-medium" style="color: var(--ink)">This week</h2>
+          <span class="text-sm font-mono-display" style="color: var(--ink-soft)">3</span>
+        </div>
+        <div class="mt-3 border-t" style="border-color: var(--line)">
+          <div class="flex items-center gap-3 py-2.5 px-2 border-b" style="border-color: var(--line)">
+            <span class="font-mono-display text-sm shrink-0" style="color: var(--ink-soft)">⋮⋮</span>
+            <span class="font-mono-display text-sm shrink-0" style="color: var(--accent)">[&nbsp;]</span>
+            <span class="flex-1 min-w-0 wrap-anywhere text-base" style="color: var(--ink)">Draft the Q3 proposal outline</span>
+          </div>
+          <div class="flex items-center gap-3 py-2.5 px-2 border-b" style="border-color: var(--line)">
+            <span class="font-mono-display text-sm shrink-0" style="color: var(--ink-soft)">⋮⋮</span>
+            <span class="font-mono-display text-sm shrink-0" style="color: var(--accent)">[&nbsp;]</span>
+            <span class="flex-1 min-w-0 wrap-anywhere text-base" style="color: var(--ink)">Book flights for the offsite</span>
+          </div>
+          <div class="flex items-center gap-3 py-2.5 px-2 border-b" style="border-color: var(--line)">
+            <span class="font-mono-display text-sm shrink-0" style="color: var(--ink-soft)">⋮⋮</span>
+            <span class="font-mono-display text-sm shrink-0" style="color: var(--accent)">[&nbsp;]</span>
+            <span class="flex-1 min-w-0 wrap-anywhere text-base" style="color: var(--ink)">Return the library books</span>
+          </div>
+          <button class="w-full text-left py-2.5 px-2 text-sm" style="color: var(--ink-soft)">+ add a task</button>
+        </div>
+      </div>
+
+      <!-- List: Someday, collapsed -->
+      <div>
+        <div class="flex items-center gap-2 px-2">
+          <button aria-label="Expand Someday" class="font-mono-display text-sm inline-flex items-center justify-center w-6 h-6 shrink-0" style="color: var(--ink-soft)">▸</button>
+          <h2 class="font-mono-display text-[17px] font-medium" style="color: var(--ink)">Someday</h2>
+          <span class="text-sm font-mono-display" style="color: var(--ink-soft)">5</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- New list -->
+    <div class="mt-10 px-2">
+      <button class="font-mono-display text-sm py-2" style="color: var(--ink-soft)">+ start a list</button>
+    </div>
+
+  </div>
+</body>
+</html>
