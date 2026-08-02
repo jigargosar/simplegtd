@@ -34,3 +34,5 @@ Implementation and UX for everything in Required is open: fonts, colors, icons, 
 ## Spike fidelity
 
 The next spike is a static design, not a functional build. Interactive states (hover, checked, dragging, and so on) can be shown as frozen snapshots. Not every state needs to be shown.
+
+Use the `frontend-design` and `frontend-baseline` skills when building it.
