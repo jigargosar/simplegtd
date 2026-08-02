@@ -8,7 +8,6 @@ Walked item by item, 2 Aug 2026.
 - **A** keep it as is
 - **B** keep the job, the look is open
 - **C** do whatever you like
-- **D** never do this again
 
 ## The 21 items in the spike
 
