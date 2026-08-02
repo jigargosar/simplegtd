@@ -1,46 +1,21 @@
 # Fixed and open
 
-What in `manuscript.html` has to stay, and what is free to change.
-Walked item by item, 2 Aug 2026.
+What the next spike must build, and what's left for it to design.
 
-## Key
+## Required
 
-- **A** keep it as is
-- **B** keep the job, the look is open
-
-## The 21 items in the spike
-
-1. **Wordmark**. Names the app. Lowercase italic serif, top left. **B**
-2. **Find field**. Filters tasks by typing. Borderless input with a thin underline. **B**
-3. **Preset filters**. Switch between all / active / done. Three words split by a middot. **B**
-   Note: `all / active / done` is TodoMVC's exact triple.
-5. **Quick capture**. The "Write here…" input. **B**
-   Can be invoked from anywhere. Has a list picker. Remembers the last list used.
-9. **List heading**. Names a list. Italic serif, larger, semibold. **B**
-10. **Collapse chevron**. Folds a list shut. **B**
-12. **Round checkbox**. Marks a task done. Ring that fills green. **B**
-13. **Task title**. The task's own words on the row. **B**
-14. **Done styling**. Dim plus strikethrough. **B**
-    Note: near-universal todo convention.
-15. **Delete ×**. Removes a task. Hidden until the row is hovered. **B**
-    A task can be removed.
-    Removing a task carries resistance.
-16. **Row hover**. Shows which row a click will land on. **B**
-17. **New list button**. `+ begin a new list` at the bottom. **B**
-20. **Column**. One narrow centred column with the lists stacked. **B**
-    The narrow stacked column is the job. The 640px figure is not.
-22. Intial seeding of tasks and sections.
-
-## Jobs the spike does not show
-
-22. **Add inside a list**. Adding an item straight into a list while looking at that list. Feature locked, implementation open. **B**
-23. **Drag and drop**. Moving a task within a list and between lists by dragging. Lists themselves can be dragged into a new order too. Feature locked, implementation open. **B**
-
-## Standing rules for anyone working from this
-
-- Do not treat the current hierarchy or theme as a constraint.
-- Purely visual elements default to **C**.
-- Nothing is marked **A**, and nothing is marked **D**. The D pass has not been done yet.
+- The app has a name, shown somewhere persistent.
+- Tasks can be filtered by typed text.
+- Tasks can be viewed by state: all, active, done.
+- A task can be captured quickly from anywhere; it gets assigned to a list, and the last list used is remembered.
+- Each list has a name.
+- A list can be collapsed shut.
+- A task can be marked done, and done tasks are visually distinguished from active ones.
+- A task can be removed; removal is not instant or accidental, it carries some resistance.
+- A new list can be created.
+- Lists render as a single narrow column, stacked, not side by side.
+- A task can be added directly into a list while viewing that list.
+- A task can be reordered within a list and moved between lists. Lists themselves can be reordered.
 
 ## Not doing
 
@@ -51,3 +26,11 @@ Walked item by item, 2 Aug 2026.
 - Undo.
 - Full draft persistence.
 - Full keyboard support.
+
+## Open
+
+Implementation and UX for everything in Required is open: fonts, colors, icons, spacing, exact copy, and exact interaction mechanics (hover-to-reveal vs. always-visible, chevron vs. some other collapse control, checkbox shape, button styling, and so on) are not constrained by this doc.
+
+## Spike fidelity
+
+The next spike is a static design, not a functional build. Interactive states (hover, checked, dragging, and so on) can be shown as frozen snapshots. Not every state needs to be shown.

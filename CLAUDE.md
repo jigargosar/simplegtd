@@ -35,3 +35,4 @@ pnpm typecheck    # tsc --noEmit
 ## Next Steps
 
 - See `docs/scratch-or-not.md` for active decisions.
+- See `docs/spikes/ui-ux/fixed-and-open.md` for what the next UI spike must build and what's open.
