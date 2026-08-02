@@ -29,6 +29,18 @@ Drag grip, move between lists, list reorder.
 - Done view still shows "N open" on list headers.
 - Narrow layout never seen; the window will not resize below 1536px here.
 
+## States board, how to build it
+
+- Bottom of the same page, below the New list row. Not a URL, not a second file, not a storybook.
+- Each entry is a caption above the smallest fragment that shows the state, not the whole app
+  repeated with one thing changed. One row for rest, two for adjacent hovers, one header, one
+  add-input.
+- Fragments render the app's own `Row`, header, `Ghost` and `Capture` with a `force` prop that
+  applies what `:hover` and `:focus-visible` would. Pseudo-classes cannot be faked, and
+  hand-written examples drift.
+- Same paper, same column width as the app, or the collisions stop reproducing.
+- Its own seed data, so playing with the app above does not change it.
+
 ## States board coverage
 
 Pairs first, because collisions are what bite. Singles after.
