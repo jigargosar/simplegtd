@@ -1,5 +1,11 @@
 # CLAUDE.md
 
+- NEVER EVER USE ANY TOOLS, WITHOUT A EXPLICIT PERMISSION FROM ME. 
+- THIS RULE LASTS FOR ENTIRE CONVERSATION AND ACROSS EVERY REQUEST RESPONSE CYCLE.
+- WHEN YOUR THINKING IS IN DOUBT, IMMEDIATELY DEFAULT TO TAKING EXPLICIT PERMISSION.
+
+## SimpleGTD
+
 - SimpleGTD is a calm task board that holds everything you mean to do, so your mind
   doesn't have to.
 - It stays quiet and out of the way — the doing happens out in the
