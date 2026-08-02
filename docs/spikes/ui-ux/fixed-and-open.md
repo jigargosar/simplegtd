@@ -6,6 +6,7 @@
 - Use the `frontend-design` and `frontend-baseline` skills.
 - The deliverable is single HTML file
 - Try to use libraries from cdn. Instead of hardcoded HTML, data+loops can be much cheeper.
+- `npx -y serve ...` should be used to serve single HTML file for review.
 
 ## Required
 
