@@ -49,38 +49,77 @@ const seed = [
 
 const ring = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine'
 const meta = 'font-mono text-[11px] uppercase tracking-[.14em]'
+const EMPTY = 'Nothing here matches. Clear the filter to see everything.'
 
-const Row = ({ x, asking, onToggle, onAsk, onKeep, onRemove }) => asking ? html`
+const lit = 'outline-2 outline-offset-2 outline-pine'
+
+// force: '' | 'hover' | 'focus' | 'drag' | 'ghost'. still: render an edit box without taking focus.
+const Edit = ({ value, still, onDone, onCancel, cls }) => {
+  const r = useRef()
+  useEffect(() => { if (!still) { r.current.focus(); r.current.select() } }, [])
+  const done = () => { const v = r.current.value.trim(); v ? onDone(v) : onCancel() }
+  return html`<input ref=${r} defaultValue=${value} onBlur=${still ? null : done}
+    onKeyDown=${e => e.key === 'Enter' ? done() : e.key === 'Escape' && onCancel()}
+    class=${cls + ' ' + (still ? lit : ring)} />`
+}
+
+const Row = ({ x, asking, editing, still, force = '', onToggle, onAsk, onKeep, onRemove, onEdit, onName, onStop }) => {
+  if (asking) return html`
   <li class="flex items-center gap-2 rounded-lg bg-fill px-2 py-1.5">
     <p class="min-w-0 flex-1 text-[15px] text-ink2 wrap-anywhere">Remove “${x.text}”?</p>
     <button onClick=${onRemove} class=${'h-9 shrink-0 rounded-md px-3 font-medium text-brick hover:bg-paper ' + meta + ' ' + ring}>Remove</button>
     <button onClick=${onKeep} class=${'h-9 shrink-0 rounded-md px-3 text-ink2 hover:bg-paper ' + meta + ' ' + ring}>Keep</button>
-  </li>` : html`
-  <li class="group flex items-center gap-1 rounded-lg px-1 hover:bg-fill">
+  </li>`
+  const skin = force === 'drag' ? 'bg-paper rotate-[-.5deg] shadow-[0_10px_26px_rgba(15,18,14,.3)] ring-1 ring-ink/15' : force === 'hover' ? 'bg-fill' : force === 'ghost' ? 'opacity-40' : 'hover:bg-fill'
+  const vis = force && force !== 'ghost' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+  return html`
+  <li class=${'group flex items-center gap-1 rounded-lg px-1 ' + skin}>
     <button onClick=${onToggle} aria-pressed=${x.done} aria-label=${'Mark ' + x.text + (x.done ? ' not done' : ' done')} class=${'grid size-9 shrink-0 place-items-center rounded-md ' + ring}>
       <span class=${'grid size-5 place-items-center rounded-full border-2 ' + (x.done ? 'border-pine bg-pine text-paper' : 'border-rule')}>
         ${x.done && html`<${Check} class="size-3" stroke-width="3.5" />`}
       </span>
     </button>
-    <span class="min-w-0 flex-1 py-2 pr-1">
+    ${editing ? html`<${Edit} value=${x.text} still=${still} onDone=${onName} onCancel=${onStop}
+      cls="min-w-0 flex-1 rounded-md bg-fill px-1 py-2 text-[15px] leading-6 text-ink" />` : html`
+    <button onClick=${onEdit} aria-label=${'Rename ' + x.text} class=${'min-w-0 flex-1 cursor-text rounded-md px-1 py-2 text-left ' + ring}>
       <span class="relative inline-block max-w-full">
         <span class=${'block text-[15px] leading-6 wrap-anywhere ' + (x.done ? 'text-ink2' : 'text-ink')}>${x.text}</span>
         <svg class="strike pointer-events-none absolute inset-x-0 top-1/2 h-3 w-full -translate-y-1/2" viewBox="0 0 100 6" preserveAspectRatio="none" aria-hidden="true">
           <path d="M.6 3.5C21 2.1 43 4.3 65 2.9S91 3.2 99.4 2.5" fill="none" class="stroke-ink2" stroke-width=".7" stroke-linecap="round" stroke-dasharray="102" style=${'stroke-dashoffset:' + (x.done ? 0 : 102)} />
         </svg>
       </span>
-    </span>
-    <span class="grid size-9 shrink-0 cursor-grab place-items-center text-soft opacity-0 group-hover:opacity-100" title="Drag to reorder"><${GripVertical} class="size-4" /></span>
-    <button onClick=${onAsk} aria-label=${'Remove ' + x.text} class=${'grid size-9 shrink-0 place-items-center rounded-md text-soft opacity-0 hover:bg-paper hover:text-brick group-hover:opacity-100 focus-visible:opacity-100 ' + ring}><${X} class="size-4" /></button>
+    </button>`}
+    ${!editing && html`<span class=${'grid size-9 shrink-0 cursor-grab place-items-center text-soft ' + vis} title="Drag to reorder"><${GripVertical} class="size-4" /></span>`}
+    ${!editing && force !== 'drag' && html`<button onClick=${onAsk} aria-label=${'Remove ' + x.text} class=${'grid size-9 shrink-0 place-items-center rounded-md text-soft hover:bg-paper hover:text-brick focus-visible:opacity-100 ' + vis + ' ' + ring + (force === 'focus' ? ' ' + lit : '')}><${X} class="size-4" /></button>`}
   </li>`
+}
 
-const Ghost = ({ label, onAdd, display }) => {
+const Head = ({ name, count, openUp, force = '', editing, still, onToggle, onEdit, onName, onStop }) => {
+  const hov = force === 'hover'
+  return html`<div class="group/h flex items-center gap-2 border-b border-rule pb-1.5">
+    <button onClick=${onToggle} aria-expanded=${openUp} aria-label=${(openUp ? 'Collapse ' : 'Expand ') + name}
+      class=${'grid size-9 shrink-0 place-items-center rounded-lg hover:bg-fill ' + ring}>
+      <${ChevronRight} class=${'size-4 text-ink2 transition-transform ' + (openUp ? 'rotate-90' : '')} />
+    </button>
+    ${editing ? html`<${Edit} value=${name} still=${still} onDone=${onName} onCancel=${onStop}
+      cls="min-w-0 flex-1 rounded-lg bg-fill px-1.5 py-1 font-display text-[19px] font-medium text-ink" />` : html`
+    <h2 class="min-w-0 flex-1">
+      <button onClick=${onEdit} aria-label=${'Rename ' + name} class=${'block max-w-full truncate rounded-lg px-1.5 py-1 text-left font-display text-[19px] font-medium hover:bg-fill ' + (hov ? 'bg-fill ' : '') + ring}>${name}</button>
+    </h2>`}
+    <span class="relative flex h-9 w-16 shrink-0 items-center justify-end">
+      <span class=${meta + ' tabular-nums text-ink2 ' + (hov ? 'opacity-0' : 'group-hover/h:opacity-0')}>${count} open</span>
+      <span class=${'absolute right-0 grid size-9 cursor-grab place-items-center text-soft ' + (hov ? 'opacity-100' : 'opacity-0 group-hover/h:opacity-100')} title="Drag to reorder"><${GripVertical} class="size-4" /></span>
+    </span>
+  </div>`
+}
+
+const Ghost = ({ label, onAdd, display, still }) => {
   const [v, setV] = useState('')
   const send = e => { e.preventDefault(); if (v.trim()) { onAdd(v.trim()); setV('') } }
   return html`<form onSubmit=${send} class="flex items-center gap-1 px-1 pt-1.5">
     <span class="grid size-9 shrink-0 place-items-center text-soft"><${Plus} class="size-4" /></span>
     <input value=${v} onInput=${e => setV(e.target.value)} placeholder=${label} aria-label=${label}
-      class=${'min-w-0 flex-1 rounded-md bg-transparent px-1 py-2 leading-6 text-ink placeholder:text-soft hover:bg-fill focus:bg-fill ' + (display ? 'font-display text-[19px] font-medium' : 'text-[15px]') + ' ' + ring} />
+      class=${'min-w-0 flex-1 rounded-md px-1 py-2 leading-6 text-ink placeholder:text-soft hover:bg-fill focus:bg-fill ' + (display ? 'font-display text-[19px] font-medium' : 'text-[15px]') + ' ' + (still ? 'bg-fill ' + lit : 'bg-transparent ' + ring)} />
   </form>`
 }
 
@@ -112,10 +151,66 @@ const Capture = ({ open, lists, last, onClose, onAdd }) => {
   </dialog>`
 }
 
+// The states board. Same components as the app, forced with props, because :hover cannot be faked.
+const bt = [mk('Reply to the invoice thread'), mk('Renew the domain before it lapses'), mk('Walk before the light goes'), mk('Pay the electricity bill', true), mk('Book the dentist for the chipped molar')]
+const Case = ({ t, children }) => html`<div class="pt-6">
+  <p class=${meta + ' pb-2 text-ink2'}>${t}</p>
+  <div class="rounded-lg border border-dashed border-rule/60 p-1">${children}</div>
+</div>`
+const U = ({ children }) => html`<ul class="flex flex-col gap-0.5">${children}</ul>`
+
+const Board = () => {
+  const [a, b, c, d, e] = bt
+  return html`<div class="px-5 pt-10 pb-28">
+    <div class="border-t-2 border-ink pt-3">
+      <p class=${meta + ' font-medium text-ink'}>States</p>
+      <p class="pt-1.5 text-[14px] leading-6 text-ink2">Forced, not live. Pairs first, because what breaks is neighbours colliding. The chrome above stays real, so the filter, the tabs, Capture and the overlay are judged there.</p>
+    </div>
+    <${Case} t="Rest, hover, two adjacent hovers">
+      <${U}><${Row} x=${a} /><${Row} x=${b} force="hover" /><${Row} x=${c} force="hover" /><//>
+    <//>
+    <${Case} t="Done at rest, done under hover">
+      <${U}><${Row} x=${d} /><${Row} x=${d} force="hover" /><//>
+    <//>
+    <${Case} t="Renaming, between a plain row and a hovered one">
+      <${U}><${Row} x=${a} /><${Row} x=${b} editing=${true} still=${true} /><${Row} x=${c} force="hover" /><//>
+    <//>
+    <${Case} t="Confirm strip under a hovered row">
+      <${U}><${Row} x=${a} force="hover" /><${Row} x=${b} asking=${true} /><//>
+    <//>
+    <${Case} t="Focused remove button beside a hovered row">
+      <${U}><${Row} x=${a} force="focus" /><${Row} x=${b} force="hover" /><//>
+    <//>
+    <${Case} t="Add a task, focused, under the hovered last row">
+      <div class="overflow-hidden pb-1.5">
+        <${U}><${Row} x=${e} force="hover" /><//>
+        <${Ghost} label="Add a task" still=${true} onAdd=${() => {}} />
+      </div>
+    <//>
+    <${Case} t="List header: rest, hover, collapsed, renaming">
+      <div class="flex flex-col gap-5 px-1">
+        <${Head} name="Today" count=${3} openUp=${true} />
+        <${Head} name="Today" count=${3} openUp=${true} force="hover" />
+        <${Head} name="Someday" count=${3} openUp=${false} />
+        <${Head} name="Today" count=${3} openUp=${true} editing=${true} still=${true} />
+      </div>
+    <//>
+    <${Case} t="Dragging: the drop line, the lifted row, the gap it leaves">
+      <${U}><${Row} x=${a} /><li class="h-0.5 rounded-full bg-pine"></li><${Row} x=${b} /><//>
+      <div class="pt-3"><${U}><${Row} x=${c} force="drag" /><${Row} x=${e} force="ghost" /><//></div>
+    <//>
+    <${Case} t="Nothing matches">
+      <p class="px-1 py-2 text-[15px] text-ink2">${EMPTY}</p>
+    <//>
+  </div>`
+}
+
 const App = () => {
   const [lists, setLists] = useState(seed)
   const [q, setQ] = useState(''), [view, setView] = useState('all')
-  const [open, setOpen] = useState(false), [last, setLast] = useState('l1'), [asking, setAsking] = useState(null)
+  const [open, setOpen] = useState(false), [last, setLast] = useState('l1')
+  const [asking, setAsking] = useState(null), [editing, setEditing] = useState(null)
+  const stop = () => setEditing(null)
 
   const onList = (id, f) => setLists(ls => ls.map(l => l.id === id ? f(l) : l))
   const onTasks = (id, f) => onList(id, l => ({ ...l, tasks: f(l.tasks) }))
@@ -158,20 +253,17 @@ const App = () => {
     ${shown.map(l => {
       const openUp = l.open || sifting
       return html`<section key=${l.id} class="px-5 pt-7">
-        <div class="flex items-center gap-2 border-b border-rule pb-1.5">
-          <button onClick=${() => onList(l.id, x => ({ ...x, open: !x.open }))} aria-expanded=${openUp}
-            class=${'flex h-9 min-w-0 flex-1 items-center gap-1.5 rounded-lg pl-1 pr-2 hover:bg-fill ' + ring}>
-            <${ChevronRight} class=${'size-4 shrink-0 text-ink2 transition-transform ' + (openUp ? 'rotate-90' : '')} />
-            <h2 class="truncate font-display text-[19px] font-medium">${l.name}</h2>
-          </button>
-          <span class=${meta + ' shrink-0 tabular-nums text-ink2'}>${l.tasks.filter(x => !x.done).length} open</span>
-        </div>
+        <${Head} name=${l.name} count=${l.tasks.filter(x => !x.done).length} openUp=${openUp} editing=${editing === l.id}
+          onToggle=${() => onList(l.id, x => ({ ...x, open: !x.open }))} onEdit=${() => setEditing(l.id)} onStop=${stop}
+          onName=${v => { onList(l.id, x => ({ ...x, name: v })); stop() }} />
         <div class=${'grid transition-[grid-template-rows] duration-200 ' + (openUp ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]')}>
           <div class="overflow-hidden pb-1.5">
             <ul class="flex flex-col gap-0.5 pt-2">
-              ${l.hits.map(x => html`<${Row} key=${x.id} x=${x} asking=${asking === x.id}
+              ${l.hits.map(x => html`<${Row} key=${x.id} x=${x} asking=${asking === x.id} editing=${editing === x.id}
                 onToggle=${() => onTasks(l.id, ts => ts.map(y => y.id === x.id ? { ...y, done: !y.done } : y))}
                 onAsk=${() => setAsking(x.id)} onKeep=${() => setAsking(null)}
+                onEdit=${() => setEditing(x.id)} onStop=${stop}
+                onName=${v => { onTasks(l.id, ts => ts.map(y => y.id === x.id ? { ...y, text: v } : y)); stop() }}
                 onRemove=${() => { onTasks(l.id, ts => ts.filter(y => y.id !== x.id)); setAsking(null) }} />`)}
             </ul>
             ${!sifting && html`<${Ghost} label="Add a task" onAdd=${text => add(l.id, text)} />`}
@@ -180,11 +272,13 @@ const App = () => {
       </section>`
     })}
 
-    ${!shown.length && html`<p class="px-5 pt-10 text-[15px] text-ink2">Nothing here matches. Clear the filter to see everything.</p>`}
+    ${!shown.length && html`<p class="px-5 pt-10 text-[15px] text-ink2">${EMPTY}</p>`}
 
-    ${!sifting && html`<div class="px-5 pt-8 pb-28">
+    ${!sifting && html`<div class="px-5 pt-8">
       <${Ghost} label="New list" display=${true} onAdd=${name => setLists(ls => [...ls, { id: 'l' + ++n, name, open: true, tasks: [] }])} />
     </div>`}
+
+    <${Board} />
   </main>
 
   <button onClick=${() => setOpen(true)}
