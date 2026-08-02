@@ -15,16 +15,12 @@ Walked item by item, 2 Aug 2026.
 2. **Find field**. Filters tasks by typing. Borderless input with a thin underline. **B**
 3. **Preset filters**. Switch between all / active / done. Three words split by a middot. **B**
    Note: `all / active / done` is TodoMVC's exact triple.
-4. **Write-line dot**. A small middot at the left of the capture row. **C**
 5. **Quick capture**. The "Write here…" input. **B**
    Job is bigger than the spike shows: it files into any list through a picker, and remembers the last list used.
-6. **Enter hint**. `↵ files it` at the right of the capture row. **C**
-7. **Rule under the header**. Hairline between capture and the lists. Purely visual. **C**
 8. **List names and order**. Inbox, Next, Waiting, Someday. **C**
    No cap on how many lists or items exist. Seed data is still undecided.
 9. **List heading**. Names a list. Italic serif, larger, semibold. **B**
 10. **Collapse chevron**. Folds a list shut. **B**
-11. **Rules between lists**. Hairlines above each list after the first. Purely visual. **C**
 12. **Round checkbox**. Marks a task done. Ring that fills green. **B**
 13. **Task title**. The task's own words on the row. **B**
 14. **Done styling**. Dim plus strikethrough. **B**
