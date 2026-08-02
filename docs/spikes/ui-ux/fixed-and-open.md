@@ -28,6 +28,7 @@
 
 - Due dates, tags, notes, subtasks, projects, archiving.
 - Multi-select and bulk actions.
+- Move-up / move-down controls. Reordering is drag and drop.
 - Export.
 - Account, sync, sharing.
 - Undo.
