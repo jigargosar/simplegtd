@@ -15,7 +15,7 @@ Walked item by item, 2 Aug 2026.
 3. **Preset filters**. Switch between all / active / done. Three words split by a middot. **B**
    Note: `all / active / done` is TodoMVC's exact triple.
 5. **Quick capture**. The "Write here…" input. **B**
-   Job is bigger than the spike shows: it files into any list through a picker, and remembers the last list used.
+   Can be invoked from anywhere. Has a list picker. Remembers the last list used.
 9. **List heading**. Names a list. Italic serif, larger, semibold. **B**
 10. **Collapse chevron**. Folds a list shut. **B**
 12. **Round checkbox**. Marks a task done. Ring that fills green. **B**
@@ -23,9 +23,8 @@ Walked item by item, 2 Aug 2026.
 14. **Done styling**. Dim plus strikethrough. **B**
     Note: near-universal todo convention.
 15. **Delete ×**. Removes a task. Hidden until the row is hovered. **B**
-    Hidden-until-hover means it does not exist for touch.
-    Deleting must carry some resistance. Not one careless click. Locked job, shape open.
-    Undo is out, so resistance is the only guard against a mistake.
+    A task can be removed.
+    Removing a task carries resistance.
 16. **Row hover**. Shows which row a click will land on. **B**
 17. **New list button**. `+ begin a new list` at the bottom. **B**
 20. **Column**. One narrow centred column with the lists stacked. **B**
