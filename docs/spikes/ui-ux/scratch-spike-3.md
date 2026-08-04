@@ -5,8 +5,20 @@ Temporary. Static design spike: `docs/spikes/ui-ux/spike-3.html`, served with
 
 ## Pending (rough priority)
 
-- Focused input outline: almost no gap between the ring and the content.
-- Done view still shows "N open" on list headers.
+- Focused input outline: almost no gap between the ring and the content, even between two rows.
+- List header hover: only the name gets the fill; doesn't cover the full row the way a task row
+  does. Hovering either the name or the count/grip area should trigger the same full-row fill.
+- Filter input has no clear (x) button.
+- Every text node should truncate with an ellipsis instead of wrapping/overflowing.
+- All hover states should be consistent.
+- Layout shifts when clicking delete: the confirm strip has a different height than the row.
+- "Filter tasks" is a misnomer: it searches everything, not just tasks.
+- Hovering on different items shows inconsistent hover widths.
+
+## Open
+
+- Done view shows "N open" on list headers. The count is accurate, not wrong, but is it the
+  right label for that view? Decision postponed.
 
 ## Done
 
