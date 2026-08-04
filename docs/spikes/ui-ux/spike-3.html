@@ -152,6 +152,7 @@ const Capture = ({ open, lists, last, onClose, onAdd }) => {
 }
 
 // The states board. Same components as the app, forced with props, because :hover cannot be faked.
+// New force value or interaction added above? Add a matching Case below.
 const bt = [mk('Reply to the invoice thread'), mk('Renew the domain before it lapses'), mk('Walk before the light goes'), mk('Pay the electricity bill', true), mk('Book the dentist for the chipped molar')]
 const Case = ({ t, children }) => html`<div class="pt-6">
   <p class=${meta + ' pb-2 text-ink2'}>${t}</p>
