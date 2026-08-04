@@ -48,7 +48,7 @@ pnpm typecheck    # tsc --noEmit
 - Each spike is a fresh look. Do not read earlier spikes, do not carry their decisions across.
 - Cheaper and smaller mean fewer lines to author and review. Never bundle size, never runtime.
 - Serve the spike, open it in a browser, screenshot it, and critique it yourself before showing Jigar.
-- Working notes for the spike in progress live in `scratch-spike-3.md`, at the project root.
+- Working notes for the spike in progress live in `docs/spikes/ui-ux/scratch-spike-3.md`.
 
 ## Next Steps
 
@@ -57,5 +57,5 @@ pnpm typecheck    # tsc --noEmit
   - `docs/spikes/ui-ux/fixed-and-open.md` — the brief. Start here.
 - Read and write:
   - `docs/spikes/ui-ux/spike-3.html` — the current spike.
-  - `scratch-spike-3.md` — working notes.
+  - `docs/spikes/ui-ux/scratch-spike-3.md` — working notes.
 - Nothing else. No other file in this project, ever.
