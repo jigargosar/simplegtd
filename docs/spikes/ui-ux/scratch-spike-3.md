@@ -5,10 +5,8 @@ Temporary. Static design spike: `docs/spikes/ui-ux/spike-3.html`, served with
 
 ## Pending (rough priority)
 
-- Focused input outline is louder than any real content.
-- Drag is drawn, not live: no pointer handling, no drop targets, no cross-list move.
+- Focused input outline: almost no gap between the ring and the content.
 - Done view still shows "N open" on list headers.
-- Narrow layout never seen; the window will not resize below 1536px here.
 
 ## Done
 
