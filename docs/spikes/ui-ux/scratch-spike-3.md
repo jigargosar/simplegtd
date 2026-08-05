@@ -14,6 +14,9 @@ Temporary. Static design spike: `docs/spikes/ui-ux/spike-3.html`, served with
 - Layout shifts when clicking delete: the confirm strip has a different height than the row.
 - "Filter tasks" is a misnomer: it searches everything, not just tasks.
 - Hovering on different items shows inconsistent hover widths.
+- All inputs (edit mode) must match the size of their non-input (display) view, so entering/
+  leaving edit doesn't shift the layout.
+- Checkbox and chevron (and the right-side items) don't align between rows and headers.
 
 ## Open
 
