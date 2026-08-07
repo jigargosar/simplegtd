@@ -49,6 +49,7 @@ pnpm typecheck    # tsc --noEmit
 - Cheaper and smaller mean fewer lines to author and review. Never bundle size, never runtime.
 - Serve the spike, open it in a browser, screenshot it, and critique it yourself before showing Jigar.
 - Working notes for the spike in progress live in `docs/spikes/ui-ux/scratch-spike-3.md`.
+- Semantic HTML and aria are postponed for the current spike, not dropped entirely.
 
 ## Next Steps
 
