@@ -21,6 +21,10 @@ From a design critique pass, 9 Aug 2026:
 - Two different hover-reveal idioms for drag handles: the list header replaces the "N open"
   count with the grip in the same slot; a task row appends the grip beside the X instead.
   Possibly fine (different available space) but worth a deliberate check, not decided yet.
+- Voice mismatch between the two "add a task" entry points: Capture's placeholder is
+  "What do you mean to do?" (matches the app's own mission language); the inline ghost row says
+  the generic "Add a task". Undecided whether the ghost row should match Capture's voice, or
+  stay quieter since it's the secondary entry point.
 - Done view shows "N open" on list headers. The count is accurate, not wrong, but is it the
   right label for that view? Decision postponed.
 - Pre-existing bug, not caused by this pass: pressing Enter to submit a rename throws
