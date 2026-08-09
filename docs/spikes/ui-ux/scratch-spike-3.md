@@ -12,6 +12,9 @@ From a design critique pass, 9 Aug 2026:
   drag is wired up.
 - Check `--color-soft` contrast on `paper`. It's used for placeholder text and icon-only
   affordances; most likely token to fail AA once the accessibility pass happens.
+- No defined type scale. Colors and fonts are tokenized in `@theme`, but font sizes are seven
+  one-off arbitrary values (`text-[11px/13px/14px/15px/19px/21px/23px]`) scattered across the
+  file instead of a reusable set.
 
 ## Open
 
