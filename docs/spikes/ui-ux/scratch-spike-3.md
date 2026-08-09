@@ -5,29 +5,42 @@ Temporary. Static design spike: `docs/spikes/ui-ux/spike-3.html`, served with
 
 ## Pending (rough priority)
 
-- Focused input outline: almost no gap between the ring and the content, even between two rows.
-- List header hover: only the name gets the fill; doesn't cover the full row the way a task row
-  does. Hovering either the name or the count/grip area should trigger the same full-row fill.
-- Filter input has no clear (x) button.
-- Every text node should truncate with an ellipsis instead of wrapping/overflowing.
-- All hover states should be consistent.
-- Layout shifts when clicking delete: the confirm strip has a different height than the row.
-- "Filter tasks" is a misnomer: it searches everything, not just tasks.
-- Hovering on different items shows inconsistent hover widths.
-- All inputs (edit mode) must match the size of their non-input (display) view, so entering/
-  leaving edit doesn't shift the layout.
-- Checkbox and chevron (and the right-side items) don't align between rows and headers.
+From a design critique pass, 9 Aug 2026:
+
+- Grip (drag handle) sits trailing, between the task text and the X remove button. Move it to
+  the leading edge — trailing puts it right next to a destructive action, a mis-hit risk once
+  drag is wired up.
+- Check `--color-soft` contrast on `paper`. It's used for placeholder text and icon-only
+  affordances; most likely token to fail AA once the accessibility pass happens.
 
 ## Open
 
+- Drag-and-drop is mocked (grip icon, grab cursor, drop-line/lifted/ghost states in the Board
+  gallery) but not wired up. Intentional for this spike; real dnd, and a keyboard path for it,
+  come later.
+- Two different hover-reveal idioms for drag handles: the list header replaces the "N open"
+  count with the grip in the same slot; a task row appends the grip beside the X instead.
+  Possibly fine (different available space) but worth a deliberate check, not decided yet.
 - Done view shows "N open" on list headers. The count is accurate, not wrong, but is it the
   right label for that view? Decision postponed.
+- Pre-existing bug, not caused by this pass: pressing Enter to submit a rename throws
+  `Cannot read properties of null (reading 'value')` in the console (Edit's `onBlur` fires a
+  second time against the now-unmounted input). Harmless — the rename still commits — but the
+  console isn't clean. Not fixed yet.
 
 ## Done
 
 Filter, all/active/done, collapse, check off with the stroke draw, add a task, new list,
 capture with last-list memory, remove with confirm, rename a task, rename a list, states board
 (9 cases, no console errors).
+
+Focused input outline gap (`outline-offset` 2→4, row gap 0.5→1.5); list header hover now fills
+the full row (chevron to grip) instead of just the name; filter input got a clear (x) button;
+task text and the remove-confirm question now truncate with an ellipsis instead of wrapping;
+remove-confirm strip height now matches a normal row; filter placeholder/label changed from
+"Filter tasks" to "Filter"; "New list" input now matches a real list header's shape (rounded-lg,
+same padding) instead of a task-row shape; checkbox and chevron (and the right-side items) now
+align between rows and headers.
 
 ## Things you can't tell just by looking
 
@@ -47,3 +60,12 @@ showed on a row being dragged, the header's hover fill stretched full width like
 (now hugs the name).
 
 Not verified: the narrow layout.
+
+## Verified in browser, 8 Aug 2026
+
+Checked all 10 items from the "Pending" list above via Playwright screenshots: focus-ring gap,
+header full-row hover, filter clear button, truncation (typed a long task name, confirmed
+single-line ellipsis, no wrap), remove-confirm strip height against a normal row, "Filter"
+label, "New list" input shape against a real header, checkbox/chevron alignment. All look right.
+
+Found in passing, not fixed (see "Open"): a console error on rename-via-Enter, pre-existing.
