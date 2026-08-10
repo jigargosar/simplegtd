@@ -36,7 +36,9 @@ pnpm typecheck    # tsc --noEmit
 - React 19, TypeScript, Vite, Tailwind v4, pnpm.
 - `fractional-indexing` for effective ordering
 - `lucide-react` for icons.
+- Newsreader for display type, IBM Plex Sans for body, IBM Plex Mono for meta. All via `@fontsource`.
 - Store is a plain module with `useSyncExternalStore`
+- Reordering is native HTML5 drag and drop in `src/Dnd.ts`. No library. Desktop pointers only.
 
 ## Spike rules
 
@@ -50,8 +52,20 @@ pnpm typecheck    # tsc --noEmit
 - Serve the spike, open it in a browser, screenshot it, and critique it yourself before showing Jigar.
 - Working notes for the spike in progress live in `docs/spikes/ui-ux/scratch-spike-3.md`.
 - Semantic HTML and aria are postponed for the current spike, not dropped entirely.
+- Concluded 2026-08-10. Spike 3 was ported into `src/` and is live. Nothing above describes work
+  in progress. It is kept as a record of how the spike was run.
+- The `docs/` fence is not lifted. It still binds. Opening anything under `docs/` beyond the two
+  named files needs asking first, granted per file, spike or no spike.
+
+## Known gaps
+
+- Drag uses the native HTML5 API, which is mouse-only in practice, so touch is likely dead.
+  Untested on a touch device. Supporting it means switching to pointer events.
+- Pointer drag works but is rough. Jigar tested it on 2026-08-10. What feels off is not yet
+  pinned down.
 
 
 ## Next Steps
 
 - Critical that we finish and deploy product before 11:45am
+- Met 2026-08-10 at 08:57. Kept as a record. No successor set.
