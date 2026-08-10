@@ -47,11 +47,11 @@ const seed = [
   { id: 'l4', name: 'Someday', open: false, tasks: [mk('Learn to make dal from scratch'), mk('Rebuild the old app, one screen at a time'), mk('Fix the wobbly chair')] },
 ]
 
-const ring = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine'
+const ring = 'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pine'
 const meta = 'font-mono text-[11px] uppercase tracking-[.14em]'
 const EMPTY = 'Nothing here matches. Clear the filter to see everything.'
 
-const lit = 'outline-2 outline-offset-2 outline-pine'
+const lit = 'outline-2 outline-offset-4 outline-pine'
 
 // force: '' | 'hover' | 'focus' | 'drag' | 'ghost'. still: render an edit box without taking focus.
 const Edit = ({ value, still, onDone, onCancel, cls }) => {
@@ -65,8 +65,8 @@ const Edit = ({ value, still, onDone, onCancel, cls }) => {
 
 const Row = ({ x, asking, editing, still, force = '', onToggle, onAsk, onKeep, onRemove, onEdit, onName, onStop }) => {
   if (asking) return html`
-  <li class="flex items-center gap-2 rounded-lg bg-fill px-2 py-1.5">
-    <p class="min-w-0 flex-1 text-[15px] text-ink2 wrap-anywhere">Remove “${x.text}”?</p>
+  <li class="flex items-center gap-2 rounded-lg bg-fill px-2">
+    <p class="min-w-0 flex-1 truncate text-[15px] leading-6 text-ink2">Remove “${x.text}”?</p>
     <button onClick=${onRemove} class=${'h-9 shrink-0 rounded-md px-3 font-medium text-brick hover:bg-paper ' + meta + ' ' + ring}>Remove</button>
     <button onClick=${onKeep} class=${'h-9 shrink-0 rounded-md px-3 text-ink2 hover:bg-paper ' + meta + ' ' + ring}>Keep</button>
   </li>`
@@ -83,7 +83,7 @@ const Row = ({ x, asking, editing, still, force = '', onToggle, onAsk, onKeep, o
       cls="min-w-0 flex-1 rounded-md bg-fill px-1 py-2 text-[15px] leading-6 text-ink" />` : html`
     <button onClick=${onEdit} aria-label=${'Rename ' + x.text} class=${'min-w-0 flex-1 cursor-text rounded-md px-1 py-2 text-left ' + ring}>
       <span class="relative inline-block max-w-full">
-        <span class=${'block text-[15px] leading-6 wrap-anywhere ' + (x.done ? 'text-ink2' : 'text-ink')}>${x.text}</span>
+        <span class=${'block truncate text-[15px] leading-6 ' + (x.done ? 'text-ink2' : 'text-ink')}>${x.text}</span>
         <svg class="strike pointer-events-none absolute inset-x-0 top-1/2 h-3 w-full -translate-y-1/2" viewBox="0 0 100 6" preserveAspectRatio="none" aria-hidden="true">
           <path d="M.6 3.5C21 2.1 43 4.3 65 2.9S91 3.2 99.4 2.5" fill="none" class="stroke-ink2" stroke-width=".7" stroke-linecap="round" stroke-dasharray="102" style=${'stroke-dashoffset:' + (x.done ? 0 : 102)} />
         </svg>
@@ -96,15 +96,15 @@ const Row = ({ x, asking, editing, still, force = '', onToggle, onAsk, onKeep, o
 
 const Head = ({ name, count, openUp, force = '', editing, still, onToggle, onEdit, onName, onStop }) => {
   const hov = force === 'hover'
-  return html`<div class="group/h flex items-center gap-2 border-b border-rule pb-1.5">
+  return html`<div class=${'group/h flex items-center gap-2 rounded-lg border-b border-rule px-1 pb-1.5 ' + (hov ? 'bg-fill' : 'hover:bg-fill')}>
     <button onClick=${onToggle} aria-expanded=${openUp} aria-label=${(openUp ? 'Collapse ' : 'Expand ') + name}
-      class=${'grid size-9 shrink-0 place-items-center rounded-lg hover:bg-fill ' + ring}>
+      class=${'grid size-9 shrink-0 place-items-center rounded-lg ' + ring}>
       <${ChevronRight} class=${'size-4 text-ink2 transition-transform ' + (openUp ? 'rotate-90' : '')} />
     </button>
     ${editing ? html`<${Edit} value=${name} still=${still} onDone=${onName} onCancel=${onStop}
       cls="min-w-0 flex-1 rounded-lg bg-fill px-1.5 py-1 font-display text-[19px] font-medium text-ink" />` : html`
     <h2 class="min-w-0 flex-1">
-      <button onClick=${onEdit} aria-label=${'Rename ' + name} class=${'block max-w-full truncate rounded-lg px-1.5 py-1 text-left font-display text-[19px] font-medium hover:bg-fill ' + (hov ? 'bg-fill ' : '') + ring}>${name}</button>
+      <button onClick=${onEdit} aria-label=${'Rename ' + name} class=${'block max-w-full truncate rounded-lg px-1.5 py-1 text-left font-display text-[19px] font-medium ' + ring}>${name}</button>
     </h2>`}
     <span class="relative flex h-9 w-16 shrink-0 items-center justify-end">
       <span class=${meta + ' tabular-nums text-ink2 ' + (hov ? 'opacity-0' : 'group-hover/h:opacity-0')}>${count} open</span>
@@ -119,7 +119,7 @@ const Ghost = ({ label, onAdd, display, still }) => {
   return html`<form onSubmit=${send} class="flex items-center gap-1 px-1 pt-1.5">
     <span class="grid size-9 shrink-0 place-items-center text-soft"><${Plus} class="size-4" /></span>
     <input value=${v} onInput=${e => setV(e.target.value)} placeholder=${label} aria-label=${label}
-      class=${'min-w-0 flex-1 rounded-md px-1 py-2 leading-6 text-ink placeholder:text-soft hover:bg-fill focus:bg-fill ' + (display ? 'font-display text-[19px] font-medium' : 'text-[15px]') + ' ' + (still ? 'bg-fill ' + lit : 'bg-transparent ' + ring)} />
+      class=${'min-w-0 flex-1 leading-6 text-ink placeholder:text-soft hover:bg-fill focus:bg-fill ' + (display ? 'rounded-lg px-1.5 py-1 font-display text-[19px] font-medium' : 'rounded-md px-1 py-2 text-[15px]') + ' ' + (still ? 'bg-fill ' + lit : 'bg-transparent ' + ring)} />
   </form>`
 }
 
@@ -158,7 +158,7 @@ const Case = ({ t, children }) => html`<div class="pt-6">
   <p class=${meta + ' pb-2 text-ink2'}>${t}</p>
   <div class="rounded-lg border border-dashed border-rule/60 p-1">${children}</div>
 </div>`
-const U = ({ children }) => html`<ul class="flex flex-col gap-0.5">${children}</ul>`
+const U = ({ children }) => html`<ul class="flex flex-col gap-1.5">${children}</ul>`
 
 const Board = () => {
   const [a, b, c, d, e] = bt
@@ -241,8 +241,10 @@ const App = () => {
       <div class="flex items-center gap-2 pt-3">
         <div class="relative min-w-0 flex-1">
           <${Search} class="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-soft" />
-          <input value=${q} onInput=${e => setQ(e.target.value)} placeholder="Filter tasks" aria-label="Filter tasks"
-            class=${'h-10 w-full min-w-0 rounded-lg border border-rule bg-paper pl-8 pr-3 text-[15px] placeholder:text-soft ' + ring} />
+          <input value=${q} onInput=${e => setQ(e.target.value)} placeholder="Filter" aria-label="Filter"
+            class=${'h-10 w-full min-w-0 rounded-lg border border-rule bg-paper pl-8 pr-9 text-[15px] placeholder:text-soft ' + ring} />
+          ${q && html`<button type="button" onClick=${() => setQ('')} aria-label="Clear filter"
+            class=${'absolute right-1.5 top-1/2 grid size-7 -translate-y-1/2 place-items-center rounded-md text-soft hover:bg-fill hover:text-ink ' + ring}><${X} class="size-3.5" /></button>`}
         </div>
         <div class="flex shrink-0 gap-0.5 rounded-lg border border-rule p-0.5">
           ${['all', 'active', 'done'].map(v => html`<button onClick=${() => setView(v)} aria-pressed=${view === v}
@@ -259,7 +261,7 @@ const App = () => {
           onName=${v => { onList(l.id, x => ({ ...x, name: v })); stop() }} />
         <div class=${'grid transition-[grid-template-rows] duration-200 ' + (openUp ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]')}>
           <div class="overflow-hidden pb-1.5">
-            <ul class="flex flex-col gap-0.5 pt-2">
+            <ul class="flex flex-col gap-1.5 pt-2">
               ${l.hits.map(x => html`<${Row} key=${x.id} x=${x} asking=${asking === x.id} editing=${editing === x.id}
                 onToggle=${() => onTasks(l.id, ts => ts.map(y => y.id === x.id ? { ...y, done: !y.done } : y))}
                 onAsk=${() => setAsking(x.id)} onKeep=${() => setAsking(null)}
