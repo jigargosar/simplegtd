@@ -38,7 +38,7 @@ export function App() {
     return (
         <>
             <main className="mx-auto min-h-screen w-full max-w-xl bg-paper pb-28 shadow-[0_0_60px_rgba(15,18,14,.35)]">
-                <header className="sticky top-0 z-20 border-b border-rule bg-paper/95 px-5 pt-5 pb-3 backdrop-blur-sm">
+                <header className="sticky top-0 z-20 border-b border-rule bg-paper px-5 pt-5 pb-3">
                     <div className="flex items-baseline justify-between gap-4">
                         <h1 className="font-display text-[23px] font-semibold tracking-tight">
                             SimpleGTD

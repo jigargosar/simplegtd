@@ -35,11 +35,15 @@ export function TaskRow({ task, nextId }: { task: Task; nextId: string | null })
         <li
             draggable={grabbed}
             onDragStart={(e) => {
+                // The row sits inside the section, which is draggable too. Without
+                // this the section's own handler would claim the drag on the way up.
+                e.stopPropagation()
                 e.dataTransfer.effectAllowed = 'move'
                 e.dataTransfer.setData('text/plain', task.id)
                 beginDrag('task', task.id)
             }}
-            onDragEnd={() => {
+            onDragEnd={(e) => {
+                e.stopPropagation()
                 setGrabbed(false)
                 endDrag()
             }}
