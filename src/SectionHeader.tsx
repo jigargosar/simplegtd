@@ -1,79 +1,93 @@
 import { useState } from 'react'
-import { ChevronRight, ChevronUp, ChevronDown, Trash2 } from 'lucide-react'
+import { ChevronRight, GripVertical, X } from 'lucide-react'
 import type { Section } from './types'
-import { toggleSectionCollapsed, renameSection, deleteSection, reorderSection } from './sections'
-import { offerUndo } from './Undo'
+import { toggleSectionCollapsed, renameSection, deleteSection } from './sections'
+import { useOpenCount } from './tasks'
+import { Edit } from './Edit'
+import { Confirm } from './Confirm'
+import { meta, ring } from './ui'
 
-const labelClass = 'font-mono text-[1.25rem] leading-7 font-semibold tracking-[0.02em] uppercase'
-
-export function SectionHeader({ section }: { section: Section }) {
+export function SectionHeader({
+    section,
+    onGrab,
+}: {
+    section: Section
+    onGrab: (grabbed: boolean) => void
+}) {
     const [editing, setEditing] = useState(false)
+    const [asking, setAsking] = useState(false)
+    const open = useOpenCount(section.id)
 
-    if (editing) {
+    if (asking) {
         return (
-            <input
-                autoFocus
-                defaultValue={section.title}
-                onBlur={(e) => {
-                    renameSection(section.id, e.target.value)
-                    setEditing(false)
-                }}
-                onKeyDown={(e) => {
-                    if (e.key === 'Enter') e.currentTarget.blur()
-                    if (e.key === 'Escape') setEditing(false)
-                }}
-                className={`${labelClass} w-full min-w-0 bg-transparent text-ink outline-none sm:text-right`}
+            <Confirm
+                text={section.title}
+                onRemove={() => deleteSection(section.id)}
+                onKeep={() => setAsking(false)}
             />
         )
     }
 
     return (
-        <div className="group/head flex items-center gap-1">
+        <div className="group/h flex items-center gap-2 rounded-lg border-b border-rule px-1 pb-1.5 hover:bg-fill">
             <button
                 onClick={() => toggleSectionCollapsed(section.id)}
-                onDoubleClick={() => setEditing(true)}
-                // Enter on this button collapses, so rename needs its own key.
-                onKeyDown={(e) => {
-                    if (e.key === 'F2' || (e.key === 'Enter' && e.shiftKey)) {
-                        setEditing(true)
-                        e.preventDefault()
-                    }
-                }}
                 aria-expanded={!section.collapsed}
-                className="flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-raised focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                aria-label={`${section.collapsed ? 'Expand' : 'Collapse'} ${section.title}`}
+                className={`grid size-9 shrink-0 place-items-center rounded-lg ${ring}`}
             >
                 <ChevronRight
-                    className={`size-4 text-muted transition-transform duration-200 sm:order-2 ${section.collapsed ? '' : 'rotate-90'}`}
-                    strokeWidth={3}
+                    className={`size-4 text-ink2 transition-transform ${
+                        section.collapsed ? '' : 'rotate-90'
+                    }`}
                 />
-                <h2 className={`${labelClass} text-ink`}>{section.title}</h2>
             </button>
-            <div className="order-first flex shrink-0 flex-col opacity-0 transition-opacity duration-300 group-hover/head:opacity-100 focus-within:opacity-100">
-                <button
-                    onClick={() => reorderSection(section.id, -1)}
-                    aria-label={`Move list "${section.title}" up`}
-                    className="grid place-items-center rounded-md p-1.5 text-muted transition-colors hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
-                >
-                    <ChevronUp className="size-4" strokeWidth={2.5} />
-                </button>
-                <button
-                    onClick={() => reorderSection(section.id, 1)}
-                    aria-label={`Move list "${section.title}" down`}
-                    className="grid place-items-center rounded-md p-1.5 text-muted transition-colors hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
-                >
-                    <ChevronDown className="size-4" strokeWidth={2.5} />
-                </button>
-            </div>
-            <button
-                onClick={() => {
-                    const undo = deleteSection(section.id)
-                    if (undo !== undefined) offerUndo(`List "${section.title}" deleted`, undo)
-                }}
-                aria-label={`Delete list "${section.title}"`}
-                className="order-first shrink-0 rounded-md p-2 text-muted opacity-0 transition-[opacity,color] duration-300 group-hover/head:opacity-100 hover:text-ink focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
-            >
-                <Trash2 className="size-4" strokeWidth={2} />
-            </button>
+
+            {editing ? (
+                <Edit
+                    value={section.title}
+                    onDone={(next) => {
+                        renameSection(section.id, next)
+                        setEditing(false)
+                    }}
+                    onCancel={() => setEditing(false)}
+                    className="min-w-0 flex-1 rounded-lg bg-fill px-1.5 py-1 font-display text-[19px] font-medium text-ink"
+                />
+            ) : (
+                <h2 className="min-w-0 flex-1">
+                    <button
+                        onClick={() => setEditing(true)}
+                        aria-label={`Rename ${section.title}`}
+                        className={`block max-w-full truncate rounded-lg px-1.5 py-1 text-left font-display text-[19px] font-medium ${ring}`}
+                    >
+                        {section.title}
+                    </button>
+                </h2>
+            )}
+
+            {/* The count and the controls share one fixed width, so hovering shifts nothing. */}
+            <span className="relative flex h-9 w-18 shrink-0 items-center justify-end">
+                <span
+                    className={`${meta} tabular-nums text-ink2 group-hover/h:opacity-0`}
+                >{`${open} open`}</span>
+                <span className="absolute right-0 flex items-center opacity-0 group-hover/h:opacity-100 focus-within:opacity-100">
+                    <span
+                        onMouseDown={() => onGrab(true)}
+                        onMouseUp={() => onGrab(false)}
+                        className="grid size-9 cursor-grab place-items-center text-soft"
+                        title="Drag to reorder"
+                    >
+                        <GripVertical className="size-4" />
+                    </span>
+                    <button
+                        onClick={() => setAsking(true)}
+                        aria-label={`Remove list ${section.title}`}
+                        className={`grid size-9 place-items-center rounded-md text-soft hover:bg-paper hover:text-brick ${ring}`}
+                    >
+                        <X className="size-4" />
+                    </button>
+                </span>
+            </span>
         </div>
     )
 }

@@ -1,46 +1,95 @@
+import { useState } from 'react'
 import type { Section } from './types'
-import { useSectionTasks, useSectionIsEmpty } from './tasks'
-import { useQuery, useFilter } from './store'
+import { useSectionTasks, addTask, placeTask } from './tasks'
+import { placeSection } from './sections'
 import { SectionHeader } from './SectionHeader'
 import { TaskRow } from './TaskRow'
+import { Ghost } from './Ghost'
+import { beginDrag, dragKind, endDrag, gapBefore, getDnd, hoverGap, useDnd } from './Dnd'
 
-// Four distinct empty states: nothing here yet, nothing matches the search,
-// nothing matches the filter, and the list is simply collapsed.
-function EmptyState({ sectionId }: { sectionId: string }) {
-    const isEmpty = useSectionIsEmpty(sectionId)
-    const query = useQuery().trim()
-    const filter = useFilter()
+const LINE = 'pointer-events-none mx-1 h-0.5 rounded-full bg-pine'
 
-    const message = isEmpty
-        ? 'Nothing filed here. Capture above, then move it down.'
-        : query !== ''
-          ? `Nothing in this list matches "${query}".`
-          : filter === 'done'
-            ? 'Nothing here is done yet.'
-            : 'Everything in this list is done.'
-
-    return <p className="px-3 py-2.5 text-base leading-7 text-muted">{message}</p>
-}
-
-export function SectionView({ section }: { section: Section }) {
+export function SectionView({
+    section,
+    nextId,
+    sifting,
+}: {
+    section: Section
+    nextId: string | null
+    sifting: boolean
+}) {
     const tasks = useSectionTasks(section.id)
+    const [grabbed, setGrabbed] = useState(false)
+    const { drag, over } = useDnd()
+    // A collapsed list opens itself while you are filtering, or its matches would hide.
+    const open = !section.collapsed || sifting
+
+    const draggingTask = drag?.kind === 'task'
+    const draggingList = drag?.kind === 'section'
+    const listLine = draggingList && over?.sectionId === null && over.beforeId === section.id
+    const tailLine = draggingTask && over?.sectionId === section.id && over.beforeId === null
+
+    function drop(e: React.DragEvent) {
+        e.preventDefault()
+        const { drag, over } = getDnd()
+        if (drag !== null && over !== null) {
+            if (drag.kind === 'task' && over.sectionId !== null) {
+                placeTask(drag.id, over.sectionId, over.beforeId)
+            } else if (drag.kind === 'section') {
+                placeSection(drag.id, over.beforeId)
+            }
+        }
+        setGrabbed(false)
+        endDrag()
+    }
 
     return (
-        <section className="grid grid-cols-1 sm:grid-cols-[10rem_1fr]">
-            <div className="flex items-start justify-start pb-1 sm:justify-end sm:pt-1 sm:pr-6">
-                <SectionHeader section={section} />
-            </div>
+        <section
+            draggable={grabbed}
+            onDragStart={(e) => {
+                e.dataTransfer.effectAllowed = 'move'
+                e.dataTransfer.setData('text/plain', section.id)
+                beginDrag('section', section.id)
+            }}
+            onDragEnd={() => {
+                setGrabbed(false)
+                endDrag()
+            }}
+            onDragOver={(e) => {
+                if (dragKind() !== 'section') return
+                e.preventDefault()
+                hoverGap(null, gapBefore(e, section.id, nextId))
+            }}
+            onDrop={drop}
+            className={`px-5 pt-7 ${draggingList && drag.id === section.id ? 'opacity-40' : ''}`}
+        >
+            {listLine && <div className={`${LINE} mb-2`} />}
 
-            <div className="border-l-2 border-rule pb-12 pl-4">
-                {section.collapsed ? null : tasks.length === 0 ? (
-                    <EmptyState sectionId={section.id} />
-                ) : (
-                    <ul className="flex flex-col gap-1">
-                        {tasks.map((task) => (
-                            <TaskRow key={task.id} task={task} />
+            <SectionHeader section={section} onGrab={setGrabbed} />
+
+            <div
+                className={`grid transition-[grid-template-rows] duration-200 ${
+                    open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                }`}
+            >
+                <div className="overflow-hidden pb-1.5">
+                    <ul
+                        onDragOver={(e) => {
+                            if (dragKind() !== 'task') return
+                            e.preventDefault()
+                            hoverGap(section.id, null)
+                        }}
+                        className={`flex flex-col gap-1.5 pt-2 ${draggingTask ? 'min-h-9' : ''}`}
+                    >
+                        {tasks.map((task, i) => (
+                            <TaskRow key={task.id} task={task} nextId={tasks[i + 1]?.id ?? null} />
                         ))}
+                        {tailLine && <li className={LINE} />}
                     </ul>
-                )}
+                    {!sifting && (
+                        <Ghost label="Add a task" onAdd={(value) => addTask(section.id, value)} />
+                    )}
+                </div>
             </div>
         </section>
     )

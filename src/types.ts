@@ -24,5 +24,6 @@ export type State = {
     tasks: Task[]
     filter?: Filter
     query?: string
-    drafts?: Record<string, string>
+    // Capture opens on whichever list took the last task.
+    lastSectionId?: SectionId
 }

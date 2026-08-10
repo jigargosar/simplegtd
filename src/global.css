@@ -1,40 +1,50 @@
 @import 'tailwindcss';
 
+@import '@fontsource-variable/newsreader';
 @import '@fontsource-variable/ibm-plex-sans';
 @import '@fontsource/ibm-plex-mono/400.css';
 @import '@fontsource/ibm-plex-mono/500.css';
 
 @theme {
+    --font-display: 'Newsreader Variable', ui-serif, serif;
     --font-sans: 'IBM Plex Sans Variable', ui-sans-serif, system-ui, sans-serif;
     --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
-    /* light — warm paper */
-    --color-paper: #faf9f7;
-    --color-raised: #f0eee9;
-    --color-ink: #1c1d22;
-    --color-muted: #4e515a;
-    --color-rule: #7e786d;
-    --color-accent: #3d3a8c;
-    --color-on-accent: #ffffff;
-}
-
-@media (prefers-color-scheme: dark) {
-    @theme {
-        --color-paper: #16171a;
-        --color-raised: #2a2c33;
-        --color-ink: #e8e6e1;
-        --color-muted: #a8a69f;
-        --color-rule: #7c7970;
-        --color-accent: #a5a0f5;
-        --color-on-accent: #16171a;
-    }
+    --color-desk: #5b6157;
+    --color-paper: #efefe8;
+    --color-fill: #deded3;
+    --color-ink: #191b16;
+    --color-ink2: #494d44;
+    --color-soft: #5c6056;
+    --color-rule: #7f8278;
+    --color-pine: #1f4a40;
+    --color-brick: #7a2e22;
 }
 
 html {
-    color-scheme: light dark;
+    color-scheme: light;
     scrollbar-gutter: stable;
 }
 
 body {
+    background: var(--color-desk);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+}
+
+.strike path {
+    transition: stroke-dashoffset 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+dialog::backdrop {
+    background: #191b16;
+    opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before {
+        transition-duration: 0.01ms !important;
+    }
 }

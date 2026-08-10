@@ -1,42 +1,84 @@
-import { CornerDownLeft } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import type { SectionId } from './types'
+import { useSections, useCaptureTarget, addSection } from './sections'
 import { addTask } from './tasks'
-import { addSection, useFirstSection } from './sections'
-import { useDraft } from './drafts'
+import { meta, ring } from './ui'
 
-export function Capture() {
-    const [value, setValue] = useDraft('capture')
-    const first = useFirstSection()
-    const target = first?.title ?? 'Inbox'
+// Capture is a modal so a thought can be filed from anywhere on the page without
+// first scrolling to the list it belongs in.
+export function Capture({ open, onClose }: { open: boolean; onClose: () => void }) {
+    const box = useRef<HTMLDialogElement>(null)
+    const field = useRef<HTMLInputElement>(null)
+    const sections = useSections()
+    const target = useCaptureTarget()
+    const [value, setValue] = useState('')
+    const [to, setTo] = useState<SectionId | undefined>(target)
+
+    useEffect(() => {
+        if (!open) {
+            box.current?.close()
+            return
+        }
+        setTo(target)
+        setValue('')
+        box.current?.showModal()
+        field.current?.focus()
+    }, [open])
 
     function submit(e: React.FormEvent) {
         e.preventDefault()
         if (value.trim() === '') return
-        // With no lists at all, capture still has to land somewhere.
-        const sectionId = first?.id ?? addSection(target)
+        // With no lists at all, a captured thought still has to land somewhere.
+        const sectionId = to ?? addSection('Inbox')
         if (sectionId === undefined) return
         addTask(sectionId, value)
-        setValue('')
+        onClose()
     }
 
+    const name = sections.find((s) => s.id === to)?.title ?? 'Inbox'
+
     return (
-        <form onSubmit={submit} className="flex items-center gap-3 pb-12">
-            <input
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                placeholder="What's on your mind?"
-                aria-label={`Capture a task into ${target}`}
-                data-capture
-                className="min-w-0 flex-1 border-b-2 border-rule bg-transparent px-1 pt-2 pb-3 text-lg text-ink transition-colors placeholder:text-muted focus:border-accent focus:outline-none"
-            />
-            <button
-                type="submit"
-                disabled={value.trim() === ''}
-                aria-label={`Add to ${target}`}
-                className="flex shrink-0 items-center gap-2 rounded-md px-3 py-2.5 font-mono text-xs tracking-[0.1em] uppercase transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none enabled:text-accent enabled:hover:bg-raised disabled:text-muted disabled:opacity-60"
-            >
-                <CornerDownLeft className="size-3.5" strokeWidth={2.5} />
-                File
-            </button>
-        </form>
+        <dialog
+            ref={box}
+            onClose={onClose}
+            onClick={(e) => e.target === box.current && onClose()}
+            className="m-auto w-[min(30rem,calc(100vw-2rem))] rounded-xl bg-paper p-0 text-ink shadow-2xl"
+        >
+            <form onSubmit={submit} className="flex flex-col gap-4 p-6">
+                <p className={`${meta} text-ink2`}>Capture</p>
+                <input
+                    ref={field}
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    placeholder="What do you mean to do?"
+                    aria-label="New task"
+                    className={`w-full rounded-none border-b-2 border-rule bg-transparent px-1 pb-2 font-display text-[21px] text-ink placeholder:text-soft ${ring}`}
+                />
+                <div className="flex flex-wrap gap-1.5">
+                    {sections.map((s) => (
+                        <button
+                            key={s.id}
+                            type="button"
+                            onClick={() => setTo(s.id)}
+                            className={`h-9 rounded-full px-3.5 text-[13px] ${ring} ${
+                                to === s.id
+                                    ? 'bg-pine font-medium text-paper'
+                                    : 'border border-rule text-ink2 hover:bg-fill'
+                            }`}
+                        >
+                            {s.title}
+                        </button>
+                    ))}
+                </div>
+                <div className="flex items-center justify-between gap-4 pt-1">
+                    <p className="font-mono text-[11px] text-ink2">Esc to close</p>
+                    <button
+                        className={`h-10 rounded-lg bg-pine px-4 text-[14px] font-medium text-paper hover:bg-ink ${ring}`}
+                    >
+                        Add to {name}
+                    </button>
+                </div>
+            </form>
+        </dialog>
     )
 }

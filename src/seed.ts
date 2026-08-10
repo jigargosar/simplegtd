@@ -3,18 +3,16 @@ import type { State } from './types'
 
 const seedSections: [string, string[]][] = [
     [
-        'Inbox',
+        'Today',
         [
-            'Anything you think of lands here first',
-            'Empty this list by moving each line somewhere below',
+            'Reply to the invoice thread',
+            'Renew the domain before it lapses',
+            'Walk before the light goes',
         ],
     ],
-    [
-        'Next',
-        ['The things you would do if you had a free hour', 'Reply to the email about the invoice'],
-    ],
-    ['Waiting', ['Waiting on a reply from the accountant', 'Package should arrive Thursday']],
-    ['Someday', ['Learn to make proper sourdough', 'Repaint the hallway']],
+    ['This week', ['Draft the deploy workflow', 'Book the dentist for the chipped molar']],
+    ['Waiting on', ['Signed lease from the landlord', 'Refund from the airline']],
+    ['Someday', ['Learn to make dal from scratch', 'Fix the wobbly chair']],
 ]
 
 export function makeSeedState(): State {

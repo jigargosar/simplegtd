@@ -6,8 +6,31 @@ export function useSections() {
     return useStore((s) => [...s.sections].sort(byOrder), sameItems)
 }
 
-export function firstSectionId() {
-    return [...getState().sections].sort(byOrder)[0]?.id
+// While the filter box or the tabs are narrowing things down, a list with no
+// surviving tasks is noise, so it drops out entirely.
+export function useVisibleSections() {
+    return useStore((s) => {
+        const f = s.filter ?? 'all'
+        const q = (s.query ?? '').trim().toLowerCase()
+        const sorted = [...s.sections].sort(byOrder)
+        if (q === '' && f === 'all') return sorted
+        return sorted.filter((sec) =>
+            s.tasks.some(
+                (t) =>
+                    t.sectionId === sec.id &&
+                    (f === 'all' ? true : f === 'done' ? t.done : !t.done) &&
+                    (q === '' || t.title.toLowerCase().includes(q)),
+            ),
+        )
+    }, sameItems)
+}
+
+// Capture lands on the last list used, falling back to whichever sorts first.
+export function useCaptureTarget() {
+    return useStore((s) => {
+        const sorted = [...s.sections].sort(byOrder)
+        return sorted.find((x) => x.id === s.lastSectionId)?.id ?? sorted[0]?.id
+    }, Object.is)
 }
 
 export function addSection(title: string) {
@@ -25,49 +48,24 @@ export function addSection(title: string) {
     return section.id
 }
 
-// Capture files here, so its label has to name whatever list actually sorts first.
-export function useFirstSection() {
-    return useStore((s) => [...s.sections].sort(byOrder)[0], Object.is)
-}
-
 export function renameSection(id: SectionId, title: string) {
     const trimmed = title.trim()
     if (trimmed === '') return
     const state = getState()
-    set({ ...state, sections: state.sections.map((s) => (s.id === id ? { ...s, title: trimmed } : s)) })
+    set({
+        ...state,
+        sections: state.sections.map((s) => (s.id === id ? { ...s, title: trimmed } : s)),
+    })
 }
 
-export function reorderSection(id: SectionId, direction: -1 | 1) {
-    const state = getState()
-    const sorted = [...state.sections].sort(byOrder)
-    const i = sorted.findIndex((s) => s.id === id)
-    const target = i + direction
-    if (i === -1 || target < 0 || target >= sorted.length) return
-    const [a, b] =
-        direction === -1
-            ? [sorted[target - 1]?.order ?? null, sorted[target].order]
-            : [sorted[target].order, sorted[target + 1]?.order ?? null]
-    const order = generateKeyBetween(a, b)
-    set({ ...state, sections: state.sections.map((s) => (s.id === id ? { ...s, order } : s)) })
-}
-
-// Deleting a list takes its tasks with it, so undo has to restore both.
+// Deleting a list takes its tasks with it.
 export function deleteSection(id: SectionId) {
     const state = getState()
-    const section = state.sections.find((s) => s.id === id)
-    if (section === undefined) return
-    const tasks = state.tasks.filter((t) => t.sectionId === id)
     set({
         ...state,
         sections: state.sections.filter((s) => s.id !== id),
         tasks: state.tasks.filter((t) => t.sectionId !== id),
     })
-    return () =>
-        set({
-            ...getState(),
-            sections: [...getState().sections, section],
-            tasks: [...getState().tasks, ...tasks],
-        })
 }
 
 export function toggleSectionCollapsed(id: SectionId) {
@@ -76,4 +74,14 @@ export function toggleSectionCollapsed(id: SectionId) {
         ...state,
         sections: state.sections.map((s) => (s.id === id ? { ...s, collapsed: !s.collapsed } : s)),
     })
+}
+
+export function placeSection(id: SectionId, beforeId: SectionId | null) {
+    if (id === beforeId) return
+    const state = getState()
+    const others = state.sections.filter((s) => s.id !== id).sort(byOrder)
+    const i = beforeId === null ? others.length : others.findIndex((s) => s.id === beforeId)
+    if (i === -1) return
+    const order = generateKeyBetween(others[i - 1]?.order ?? null, others[i]?.order ?? null)
+    set({ ...state, sections: state.sections.map((s) => (s.id === id ? { ...s, order } : s)) })
 }
