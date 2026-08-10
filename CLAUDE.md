@@ -64,6 +64,13 @@ pnpm typecheck    # tsc --noEmit
 - Pointer drag works but is rough. Jigar tested it on 2026-08-10. What feels off is not yet
   pinned down.
 
+## Potential paths forward
+
+- Deleting a list takes every task in it, behind one confirm, with no undo. It is the only real
+  data-loss surface in the app. Worth revisiting.
+- Mobile needs an overhaul, not a patch. Future, not now.
+- Semantic HTML and aria are postponed indefinitely.
+
 
 ## Next Steps
 
