@@ -51,19 +51,7 @@ pnpm typecheck    # tsc --noEmit
 - Working notes for the spike in progress live in `docs/spikes/ui-ux/scratch-spike-3.md`.
 - Semantic HTML and aria are postponed for the current spike, not dropped entirely.
 
-## AI-Firstify audit (2026-08-09)
-
-- Ran a read-only ai-firstify audit. No files were changed by the audit itself.
-- Parked, not done: typecheck gate in deploy.yml before build, extracting the
-  spike workflow into a `.claude/skills/` skill, broadening .gitignore secret
-  patterns. Revisit only if asked.
 
 ## Next Steps
 
-- Read only:
-  - `CLAUDE.md`
-  - `docs/spikes/ui-ux/fixed-and-open.md` — the brief. Start here.
-- Read and write:
-  - `docs/spikes/ui-ux/spike-3.html` — the current spike.
-  - `docs/spikes/ui-ux/scratch-spike-3.md` — working notes.
-- Nothing else. No other file in this project, ever.
+- Critical that we finish and deploy product before 11:45am
